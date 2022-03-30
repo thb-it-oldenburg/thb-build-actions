@@ -34,10 +34,12 @@ jobs:
         run: mvn -B clean package --file pom.xml
 
       - name: Copy .jars to production folder
-        run: mkdir production && cp target/*.jar production && cp Dockerfile production && ls production && ls
+        run: mkdir production && cp target/*.jar production && cp Dockerfile production && ls production
+        
+      - run: ls target
 
       - name: Upload production artifact
         uses: actions/upload-artifact@v3.0.0
         with:
           name: "&{{ env.GITHUB_REPOSITORY }}-backend"
-          path: production/
+          path: production
