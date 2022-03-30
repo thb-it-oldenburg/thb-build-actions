@@ -26,4 +26,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
           JAVASCRIPT_DEFAULT_STYLE: prettier
-          DISABLE_ERRORS: "&{{ inputs:DISABLE_ERRORS }}""
+          DISABLE_ERRORS: "&{{ inputs:DISABLE_ERRORS }}"
