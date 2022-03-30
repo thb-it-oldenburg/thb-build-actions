@@ -25,10 +25,10 @@ jobs:
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build Container image
-        run: docker build -t ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ dockerhub-tag }} . # Beachte den punkt am ende als Pfad
+        run: docker build -t ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }} . # Beachte den punkt am ende als Pfad
 
       - name: Publish Docker image
-        run: docker push ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ dockerhub-tag }}
+        run: docker push ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }}
 
       - name: Log out of Docker Hub
         run: docker logout
