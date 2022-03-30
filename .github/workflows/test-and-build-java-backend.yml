@@ -6,6 +6,9 @@ on:
       java-version:
         default: 8
         type: number
+      working-directory:
+        default: "backend"
+        type: string
 
 jobs:
   build-backend:
@@ -14,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "backend"
+        working-directory: ${{ inputs.working-directory }}
 
     steps:
       - uses: actions/checkout@v2.4.0
@@ -31,7 +34,7 @@ jobs:
         run: mvn -B clean package --file pom.xml
 
       - name: Copy .jars to production folder
-        run: mkdir production && cp target/*.jar production && cp Dockerfile production
+        run: mkdir production && cp target/*.jar production && cp Dockerfile production && ls production && ls
 
       - name: Upload production artifact
         uses: actions/upload-artifact@v3.0.0
