@@ -7,7 +7,7 @@ on:
         default: 8
         type: number
       working-directory:
-        default: "backend"
+        default: "."
         type: string
 
 jobs:
