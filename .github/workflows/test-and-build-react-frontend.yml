@@ -12,7 +12,7 @@ on:
 
 jobs:
   test-and-build-frontend:
-    name: Test And Build Frontend Code
+    name: Test and build frontend Code
     runs-on: ubuntu-latest
 
     defaults:
