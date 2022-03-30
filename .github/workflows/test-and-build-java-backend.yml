@@ -9,6 +9,9 @@ on:
       working-directory:
         default: "."
         type: string
+      artifact-name:
+        required: true
+        type: string
 
 jobs:
   build-backend:
@@ -39,5 +42,5 @@ jobs:
       - name: Upload production artifact
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: "${{ env.GITHUB_REPOSITORY }}-backend"
+          name: "${{ inputs.artifact-name }}"
           path: "${{ inputs.working-directory }}/production/"
