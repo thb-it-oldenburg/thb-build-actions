@@ -6,14 +6,13 @@ on:
       dockerhub-tag:
         required: true
         type: string
-
-  secrets:
-    DOCKERHUB_USERNAME:
-      required: true
-    DOCKERHUB_PASSWORD:
-      required: true
-    DOCKERHUB_REPOSITORY:
-      required: true
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_PASSWORD:
+        required: true
+      DOCKERHUB_REPOSITORY:
+        required: true
 
 jobs:
   build-push-docker:
