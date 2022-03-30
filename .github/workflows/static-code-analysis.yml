@@ -24,6 +24,8 @@ jobs:
           DEFAULT_BRANCH: main
           IGNORE_GITIGNORED_FILES: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+          LINTER_RULES_PATH: /.github/workflows/linters
           JAVA_FILE_NAME: https://github.com/thb-it-oldenburg/thb-build-actions/blob/V1/.github/linters/thbit-edition-proprietary-software-java.xml
           JAVASCRIPT_DEFAULT_STYLE: prettier
           DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
