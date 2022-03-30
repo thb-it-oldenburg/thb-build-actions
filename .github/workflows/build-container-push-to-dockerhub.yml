@@ -17,6 +17,7 @@ on:
 jobs:
   build-push-docker:
     name: Build and push Docker Container
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2.4.0
