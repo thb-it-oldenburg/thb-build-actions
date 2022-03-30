@@ -32,19 +32,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Tests
+      - name: Run tests
         run: "CI='true' npm test"
 
-      - name: production build
+      - name: Production build
         run: "BUILD_PATH='./production' npm run build --production"
 
-      - run: ls
+      - name: Copy neccessary files into production folder
+        run: cp Dockerfile production
 
-   #   - name: Copy neccessary files into production folder
-   #     run: mkdir production && cp ./{build,Dockerfile} ./production
-#
-#      - name: Upload production artifact
-#        uses: actions/upload-artifact@v3.0.0
-#        with:
-#          name: "&{{ env.GITHUB_REPOSITORY }}-frontend"
-#          path: "${{ inputs.working-directory }}/production/"
+      - name: Upload production artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "${{ env.GITHUB_REPOSITORY }}-frontend"
+          path: "${{ inputs.working-directory }}/production/"
