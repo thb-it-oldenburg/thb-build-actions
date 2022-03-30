@@ -44,5 +44,5 @@ jobs:
       - name: Upload production artifact
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: $env.GITHUB_REPOSITORY
+          name: $GITHUB_REPOSITORY
           path: "${{ inputs.working-directory }}/production/"
