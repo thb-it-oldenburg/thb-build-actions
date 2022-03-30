@@ -47,4 +47,4 @@ jobs:
 #        uses: actions/upload-artifact@v3.0.0
 #        with:
 #          name: "&{{ env.GITHUB_REPOSITORY }}-frontend"
-#          path: production
+#          path: "${{ inputs.working-directory }}/production/"
