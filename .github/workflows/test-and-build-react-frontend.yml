@@ -38,11 +38,13 @@ jobs:
       - name: production build
         run: "BUILD_PATH='./production' npm run build --production"
 
-      - name: Copy neccessary files into production folder
-        run: mkdir production && ls && cp ./{build,Dockerfile} ./production
+      - run: ls
 
-      - name: Upload production artifact
-        uses: actions/upload-artifact@v3.0.0
-        with:
-          name: "&{{ env.GITHUB_REPOSITORY }}-frontend"
-          path: production
+   #   - name: Copy neccessary files into production folder
+   #     run: mkdir production && cp ./{build,Dockerfile} ./production
+#
+#      - name: Upload production artifact
+#        uses: actions/upload-artifact@v3.0.0
+#        with:
+#          name: "&{{ env.GITHUB_REPOSITORY }}-frontend"
+#          path: production
