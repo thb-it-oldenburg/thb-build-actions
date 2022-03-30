@@ -1,0 +1,40 @@
+name: Test and build backend code
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        default: 8
+        type: number
+
+jobs:
+  build-backend:
+    name: Test and build backend code
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "backend"
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up a JDK in the given Version
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: &inputs:java-version
+          check-latest: true
+          cache: "maven"
+
+      - name: Build project with Maven
+        run: mvn -B clean package --file pom.xml
+
+      - name: Copy .jars to production folder
+        run: mkdir production && cp target/*.jar production && cp Dockerfile production
+
+      - name: Upload production artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "&{{ env.GITHUB_REPOSITORY }}-backend"
+          path: production/

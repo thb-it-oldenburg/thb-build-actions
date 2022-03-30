@@ -1,0 +1,29 @@
+name: Run production Build
+
+on:
+  workflow_call:
+    inputs:
+      DISABLE_ERRORS:
+        default: false
+        type: boolean
+
+jobs:
+  static-code-analysis:
+    name: super-linter code analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+
+      - uses: github/super-linter/slim@v4
+        env:
+          LOG_LEVEL: "WARN"
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          IGNORE_GITIGNORED_FILES: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
+          JAVASCRIPT_DEFAULT_STYLE: prettier
+          DISABLE_ERRORS: &inputs:DISABLE_ERRORS
