@@ -39,7 +39,7 @@ jobs:
         run: "BUILD_PATH='./production' npm run build --production"
 
       - name: Copy neccessary files into production folder
-        run: mkdir production && cp ./{build,Dockerfile} ./production
+        run: mkdir production && ls && cp ./{build,Dockerfile} ./production
 
       - name: Upload production artifact
         uses: actions/upload-artifact@v3.0.0
