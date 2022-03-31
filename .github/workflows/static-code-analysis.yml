@@ -29,17 +29,16 @@ jobs:
       - name: "Copy linter rules"
         run: cp -r thb-build-actions/.github/linters .github/
         
-      - run: ls .github && ls .github/linters
+      - name: "Show .github and linters folder"
+        run: ls .github && echo "\nlinters folder:" && ls .github/linters
         
-     # - uses: github/super-linter/slim@v4
-     #   env:
-     #     LOG_LEVEL: "WARN"
-     #     VALIDATE_ALL_CODEBASE: false
-     #     DEFAULT_BRANCH: main
-     #     IGNORE_GITIGNORED_FILES: true
-     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     #     
-     #     # LINTER_RULES_PATH: "./thb-build-actions/.github/linters"
-     #     JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
-     #     JAVASCRIPT_DEFAULT_STYLE: prettier
-     #     DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
+      - uses: github/super-linter/slim@v4
+        env:
+          LOG_LEVEL: "WARN"
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          IGNORE_GITIGNORED_FILES: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
+          JAVASCRIPT_DEFAULT_STYLE: prettier
+          DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
