@@ -10,11 +10,11 @@ on:
         required: true
         type: string
     secrets:
-      dockerhub_username:
+      DOCKERHUB_USERNAME:
         required: true
-      dockerhub_password:
+      DOCKERHUB_PASSWORD:
         required: true
-      dockerhub_repository:
+      DOCKERHUB_REPOSITORY:
         required: true
 
 jobs:
@@ -30,13 +30,13 @@ jobs:
       - run: ls
       
       - name: Login to Docker Hub
-        run: docker login -u $"heloo" -p ${{secrets.dockerhub_password}}
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
      # - name: Build Container image
-     #   run: docker build -t ${{secrets.dockerhub_repository}}:${{ inputs.dockerhub-tag }} . # Beachte den punkt am ende als Pfad
+     #   run: docker build -t ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }} . # Beachte den punkt am ende als Pfad
 
      # - name: Publish Docker image
-     #   run: docker push ${{secrets.dockerhub_repository}}:${{ inputs.dockerhub-tag }}
+     #   run: docker push ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }}
 
       - name: Log out of Docker Hub
         run: docker logout
