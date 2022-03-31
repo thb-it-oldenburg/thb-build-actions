@@ -24,6 +24,8 @@ jobs:
         
       - name: "Show current folder"
         run: ls
+      
+      - run: ls .github
         
       - uses: github/super-linter/slim@v4
         env:
