@@ -16,7 +16,11 @@ jobs:
       - uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
-
+      
+      - run: ls /
+      
+      - run ls
+      
       - uses: github/super-linter/slim@v4
         env:
           LOG_LEVEL: "WARN"
@@ -25,7 +29,7 @@ jobs:
           IGNORE_GITIGNORED_FILES: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-          LINTER_RULES_PATH: /.github/workflows/linters
+          LINTER_RULES_PATH:"-.github/linters"
           JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
           JAVASCRIPT_DEFAULT_STYLE: prettier
           DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
