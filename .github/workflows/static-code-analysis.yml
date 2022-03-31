@@ -17,9 +17,9 @@ jobs:
         with:
           fetch-depth: 0
       
-      - run: ls /action
-      
       - run: ls ..
+      
+      - run: ls /action
       
 #      - uses: github/super-linter/slim@v4
 #        env:
