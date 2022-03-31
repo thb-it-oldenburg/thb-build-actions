@@ -30,13 +30,13 @@ jobs:
       - run: ls
       
       - name: Login to Docker Hub
-        run: docker login -u ${{secrets.dockerhub_username}} -p ${{secrets.dockerhub_password}}
+        run: docker login -u $"heloo" -p ${{secrets.dockerhub_password}}
 
-      - name: Build Container image
-        run: docker build -t ${{secrets.dockerhub_repository}}:${{ inputs.dockerhub-tag }} . # Beachte den punkt am ende als Pfad
+     # - name: Build Container image
+     #   run: docker build -t ${{secrets.dockerhub_repository}}:${{ inputs.dockerhub-tag }} . # Beachte den punkt am ende als Pfad
 
-      - name: Publish Docker image
-        run: docker push ${{secrets.dockerhub_repository}}:${{ inputs.dockerhub-tag }}
+     # - name: Publish Docker image
+     #   run: docker push ${{secrets.dockerhub_repository}}:${{ inputs.dockerhub-tag }}
 
       - name: Log out of Docker Hub
         run: docker logout
