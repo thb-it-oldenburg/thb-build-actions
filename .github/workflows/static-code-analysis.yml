@@ -42,3 +42,8 @@ jobs:
           JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
           JAVASCRIPT_DEFAULT_STYLE: prettier
           DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
+        
+      - name: Upload Logfile
+        uses: actions/upload-artifact@v3
+        with:
+          path: super-linter.log
