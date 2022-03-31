@@ -27,8 +27,8 @@ jobs:
         with:
           name: ${{ inputs.artifact-name }}
 
-      - name: List current directory and "build" folder
-        run: ls && echo "\nBuild folder:" && ls build
+      - name: List current directory
+        run: ls
       
       - name: Login to DockerHub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
