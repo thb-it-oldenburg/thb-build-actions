@@ -21,9 +21,15 @@ jobs:
         with:
           repository: "thb-it-oldenburg/thb-build-actions"
           ref: "V1"
+          path: thb-build-actions
         
       - name: "Show current folder"
-        run: cd .. && ls
+        run: ls
+        
+      - name: "Copy linter rules"
+        run: cp -r thb-build-actions/.github/linters .github/
+        
+      - run: ls .github && ls .github/linters
         
      # - uses: github/super-linter/slim@v4
      #   env:
