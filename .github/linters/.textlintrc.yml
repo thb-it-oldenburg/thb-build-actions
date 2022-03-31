@@ -1,5 +1,5 @@
   filters:
     comments: true
 
-  rules: # hallo
+  rules:
     terminology: false
