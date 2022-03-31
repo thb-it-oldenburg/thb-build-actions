@@ -29,7 +29,9 @@ jobs:
       
       - run: ls ../../../../..
       
-      - run: ls ../../_actions
+      - run: ls ../../_actions/action
+      
+      - run: ls /action/lib/.automation
       
 #      - uses: github/super-linter/slim@v4
 #        env:
