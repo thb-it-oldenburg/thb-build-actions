@@ -23,19 +23,17 @@ jobs:
           ref: "V1"
         
       - name: "Show current folder"
-        run: ls
-      
-      - run: ls .github
+        run: cd .. && ls
         
-      - uses: github/super-linter/slim@v4
-        env:
-          LOG_LEVEL: "WARN"
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
-          IGNORE_GITIGNORED_FILES: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          # LINTER_RULES_PATH: "./thb-build-actions/.github/linters"
-          JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
-          JAVASCRIPT_DEFAULT_STYLE: prettier
-          DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
+     # - uses: github/super-linter/slim@v4
+     #   env:
+     #     LOG_LEVEL: "WARN"
+     #     VALIDATE_ALL_CODEBASE: false
+     #     DEFAULT_BRANCH: main
+     #     IGNORE_GITIGNORED_FILES: true
+     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     #     
+     #     # LINTER_RULES_PATH: "./thb-build-actions/.github/linters"
+     #     JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
+     #     JAVASCRIPT_DEFAULT_STYLE: prettier
+     #     DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
