@@ -29,6 +29,8 @@ jobs:
       
       - run: ls ../../../../..
       
+      - run: ls ../../_actions
+      
 #      - uses: github/super-linter/slim@v4
 #        env:
 #          LOG_LEVEL: "WARN"
