@@ -39,7 +39,7 @@ jobs:
         run: "CI='true' npm test"
 
       - name: Production build
-        run: "BUILD_PATH='./production' npm run build --production"
+        run: "BUILD_PATH='./production/build' npm run build --production"
 
       - name: Copy neccessary files into production folder
         run: cp Dockerfile production
