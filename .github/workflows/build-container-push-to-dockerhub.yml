@@ -6,6 +6,9 @@ on:
       dockerhub-tag:
         required: true
         type: string
+      artifact-name:
+        required: true
+        type: string
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -20,8 +23,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/download-artifact@v3.0.0
+        with:
+          name: ${{ inputs.artifact-name }}
 
+      - run: ls
+      
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
