@@ -1,0 +1,51 @@
+name: Test and build frontend code
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        default: "14.x"
+        type: string
+      working-directory:
+        default: "."
+        type: string
+      artifact-name:
+        required: true
+        type: string
+
+jobs:
+  test-and-build-frontend:
+    name: Test and build frontend Code
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+          cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: "CI='true' npm test"
+
+      - name: Production build
+        run: "BUILD_PATH='./production/build' npm run build --production"
+
+      - name: Copy neccessary files into production folder
+        run: cp Dockerfile production
+
+      - name: Upload production artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "${{ inputs.artifact-name }}"
+          path: "${{ inputs.working-directory }}/production/"

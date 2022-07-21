@@ -1,0 +1,47 @@
+name: Create Docker container and push to dockerHub
+
+on:
+  workflow_call:
+    inputs:
+      dockerhub-tag:
+        required: true
+        type: string
+      artifact-name:
+        required: true
+        type: string
+      artifact-path:
+        type: string
+        default: /target
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_PASSWORD:
+        required: true
+      DOCKERHUB_REPOSITORY:
+        required: true
+
+jobs:
+  build-push-docker:
+    name: Build and push Docker Container
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v3.0.0
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.artifact-path }}
+
+      - name: List current directory
+        run: ls
+      
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build Container image
+        run: docker build -t ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }} . # Beachte den punkt am ende als Pfad
+
+      - name: Push image to DockerHub
+        run: docker push ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }}
+
+      - name: Log out of DockerHub
+        run: docker logout

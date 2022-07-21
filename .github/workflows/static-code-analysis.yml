@@ -1,0 +1,49 @@
+name: Run production Build
+
+on:
+  workflow_call:
+    inputs:
+      DISABLE_ERRORS:
+        default: false
+        type: boolean
+
+jobs:
+  static-code-analysis:
+    name: super-linter code analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+          
+      - uses: actions/checkout@v2.4.0
+        with:
+          repository: "thb-it-oldenburg/thb-build-actions"
+          ref: "V1"
+          path: thb-build-actions
+        
+      - name: "Show current folder"
+        run: ls
+        
+      - name: "Copy linter rules"
+        run: cp -r thb-build-actions/.github/linters .github/
+        
+      - name: "Show .github and linters folder"
+        run: ls .github && echo "\nlinters folder:" && ls .github/linters
+        
+      - uses: github/super-linter/slim@v4
+        env:
+          LOG_LEVEL: "WARN"
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          IGNORE_GITIGNORED_FILES: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JAVA_FILE_NAME: thbit-edition-proprietary-software-java.xml
+          JAVASCRIPT_DEFAULT_STYLE: prettier
+          DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
+        
+      - name: Upload Logfile
+        uses: actions/upload-artifact@v3
+        with:
+          path: super-linter.log
