@@ -1,0 +1,60 @@
+name: Test and build backend code
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        default: 8
+        type: number
+      maven-build-command:
+        required: true
+        type: string
+        description: Pass in your individual build command
+      artifact-name:
+        required: true
+        type: string
+      artifact-path:
+        default: "."
+        type: string
+        
+    secrets:
+      maven-build-secrets:
+        description: Pass in parameters containing secrets for the build command
+
+jobs:
+  build-backend:
+    name: Test and build backend code
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up a JDK in the given Version
+        uses: actions/setup-java@v2
+        with:
+          distribution: "adopt"
+          java-version: ${{ inputs.java-version }}
+          check-latest: true
+          
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+            
+      - name: Show maven version
+        run: mvn --version
+
+      - name: Build project with Maven
+        run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload production artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "${{ inputs.artifact-name }}"
+          path: "${{ inputs.artifact-path }}/"
+          if-no-files-found: error
