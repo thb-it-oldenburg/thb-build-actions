@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       same_commit:
-        description: 
+        description: If true, ammends the current commit with the formatted code
         type: boolean
         required: false
         default: false
@@ -17,7 +17,12 @@ on:
         description: Defaults to --check, could also be --write
         type: string
         required: false
-        default: "--check"
+        default: '--check'
+      prettier_regex:
+        description: Takes a different regular expression for looking up files to prettify. Default is ts and tsx everywhere in src
+        type: string
+        required: false
+        default: 'src/**/*.ts?'
       
         
 jobs:
@@ -42,15 +47,12 @@ jobs:
       
     - name: Run ESLint
       run: eslint . --ext .js,.jsx,.ts,.tsx
-    
-    - name: Run Prettier
-      run: prettier --check 'src/**/*.ts?'
       
     - name: Prettify code
       uses: creyD/prettier_action@v4.2
       with:
-        prettier_options: "{{ $inputs.prettier_command }} **/*.{js,md}"
+        prettier_options: ${{ $inputs.prettier_command }} 
         only_changed: ${{ inputs.only_changed }}
         same_commit: ${{ inputs.same_commit }}
-        dry: ${{ inputs.prettier_command == "--check" && true || inputs.prettier_command != "--check" && false }}
+        dry: ${{ inputs.prettier_command == '--check' && true || inputs.prettier_command != '--check' && false }}
     
