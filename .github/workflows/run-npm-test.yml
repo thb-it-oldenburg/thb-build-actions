@@ -1,0 +1,36 @@
+name: Test frontend code
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        default: 14
+        type: number
+      working-directory:
+        default: "."
+        type: string
+
+jobs:
+  test-frontend:
+    name: Test frontend code
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+          cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: "CI='true' npm test"
