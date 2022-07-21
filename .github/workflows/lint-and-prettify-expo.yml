@@ -65,7 +65,7 @@ jobs:
         token: ${{ secrets.EXPO_TOKEN }}
     
     - name: Install dependencies
-      run: expo install
+      run: npm install
       
     - name: Run ESLint
       run: eslint . --ext .js,.jsx,.ts,.tsx
