@@ -51,11 +51,11 @@ jobs:
       run: ls
     
     - name: Setup Expo
-        uses: expo/expo-github-action@v7
-        with:
-          expo-version: latest
-          expo-cache: true
-          token: ${{ secrets.EXPO_TOKEN }}
+      uses: expo/expo-github-action@v7
+      with:
+        expo-version: latest
+        expo-cache: true
+        token: ${{ secrets.EXPO_TOKEN }}
     
     - name: Install dependencies
       run: npm install
