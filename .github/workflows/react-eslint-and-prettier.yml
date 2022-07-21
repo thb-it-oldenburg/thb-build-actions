@@ -51,7 +51,7 @@ jobs:
     - name: Prettify code
       uses: creyD/prettier_action@v4.2
       with:
-        prettier_options: ${{ $inputs.prettier_command }} 
+        prettier_options: ${{ inputs.prettier_command }} 
         only_changed: ${{ inputs.only_changed }}
         same_commit: ${{ inputs.same_commit }}
         dry: ${{ inputs.prettier_command == '--check' && true || inputs.prettier_command != '--check' && false }}
