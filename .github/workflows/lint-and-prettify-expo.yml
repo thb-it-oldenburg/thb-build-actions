@@ -24,11 +24,11 @@ on:
         required: false
         default: 'src/**/*.ts?'
       working-directory:
-        default: '.'
         type: string
+        default: '.'
       node-version:
         type: number
-        required: false
+        default: 14
     secrets:
       expo_token:
         required: true
