@@ -1,0 +1,56 @@
+name: Lint and Prettify
+
+on:
+  workflow-call:
+    inputs:
+      same_commit:
+        description: 
+        type: boolean
+        required: false
+        default: false
+      only_changed:
+        description: If true, only iterates over changed files.
+        type: boolean
+        required: false
+        default: false
+      prettier_command:
+        description: Defaults to --check, could also be --write
+        type: string
+        required: false
+        default: "--check"
+      
+        
+jobs:
+  lint-and-prettify:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+    
+    - name: Set up Node.js environment
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+          cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
+    
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run ESLint
+      run: eslint . --ext .js,.jsx,.ts,.tsx
+    
+    - name: Run Prettier
+      run: prettier --check 'src/**/*.ts?'
+      
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: {{ $inputs.prettier_command }} **/*.{js,md}
+          only_changed: ${{ inputs.only_changed }}
+          same_commit: ${{ inputs.same_commit }}
+          dry: ${{ inputs.prettier_command == "--check" && true || inputs.prettier_command != "--check" && false }}
+    
