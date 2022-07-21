@@ -50,6 +50,13 @@ jobs:
     - name: Output directory
       run: ls
     
+    - name: Set up Node.js environment
+      uses: actions/setup-node@v2.5.1
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: "npm"
+        cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
+    
     - name: Setup Expo
       uses: expo/expo-github-action@v7
       with:
