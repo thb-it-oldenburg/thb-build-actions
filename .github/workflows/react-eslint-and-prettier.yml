@@ -1,4 +1,4 @@
-name: Lint and Prettify
+name: Lint and prettify react
 
 on:
   workflow_call:
