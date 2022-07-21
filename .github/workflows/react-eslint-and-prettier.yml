@@ -31,11 +31,11 @@ jobs:
         fetch-depth: 0
     
     - name: Set up Node.js environment
-        uses: actions/setup-node@v2.5.1
-        with:
-          node-version: ${{ inputs.node-version }}
-          cache: "npm"
-          cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
+      uses: actions/setup-node@v2.5.1
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: "npm"
+        cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
     
     - name: Install dependencies
       run: npm install
@@ -46,11 +46,11 @@ jobs:
     - name: Run Prettier
       run: prettier --check 'src/**/*.ts?'
       
-      - name: Prettify code
-        uses: creyD/prettier_action@v4.2
-        with:
-          prettier_options: {{ $inputs.prettier_command }} **/*.{js,md}
-          only_changed: ${{ inputs.only_changed }}
-          same_commit: ${{ inputs.same_commit }}
-          dry: ${{ inputs.prettier_command == "--check" && true || inputs.prettier_command != "--check" && false }}
+    - name: Prettify code
+      uses: creyD/prettier_action@v4.2
+      with:
+        prettier_options: "{{ $inputs.prettier_command }} **/*.{js,md}"
+        only_changed: ${{ inputs.only_changed }}
+        same_commit: ${{ inputs.same_commit }}
+        dry: ${{ inputs.prettier_command == "--check" && true || inputs.prettier_command != "--check" && false }}
     
