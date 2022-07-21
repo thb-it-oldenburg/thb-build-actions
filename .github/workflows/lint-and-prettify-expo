@@ -1,0 +1,73 @@
+name: Lint and prettify react-native expo
+
+on:
+  workflow_call:
+    inputs:
+      same_commit:
+        description: If true, ammends the current commit with the formatted code
+        type: boolean
+        required: false
+        default: false
+      only_changed:
+        description: If true, only iterates over changed files.
+        type: boolean
+        required: false
+        default: false
+      prettier_command:
+        description: Defaults to --check, could also be --write
+        type: string
+        required: false
+        default: '--check'
+      prettier_regex:
+        description: Takes a different regular expression for looking up files to prettify. Default is ts and tsx everywhere in src
+        type: string
+        required: false
+        default: 'src/**/*.ts?'
+      working-directory:
+        default: '.'
+        type: string
+      node-version:
+        type: number
+        required: false
+    secrets:
+      expo_token:
+        required: true
+        
+jobs:
+  lint-and-prettify:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+    
+    - name: Output directory
+      run: ls
+    
+    - name: Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          expo-cache: true
+          token: ${{ secrets.EXPO_TOKEN }}
+    
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run ESLint
+      run: eslint . --ext .js,.jsx,.ts,.tsx
+      
+    - name: Prettify code
+      uses: creyD/prettier_action@v4.2
+      with:
+        prettier_options: ${{ inputs.prettier_command }} 
+        only_changed: ${{ inputs.only_changed }}
+        same_commit: ${{ inputs.same_commit }}
+        dry: ${{ inputs.prettier_command == '--check' && true || inputs.prettier_command != '--check' && false }}
+        
