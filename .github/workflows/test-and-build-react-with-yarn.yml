@@ -59,9 +59,10 @@ jobs:
       - name: Read Version
         id: package-version
         run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           version=$(node -p "require('./package.json').version")
-          echo "$version"
-          echo "$version<<EOF" >> $GITHUB_OUTPUT
+          echo "$version" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_ENV
 
 #      - name: Upload production artifact
 #        uses: actions/upload-artifact@v3.0.0
