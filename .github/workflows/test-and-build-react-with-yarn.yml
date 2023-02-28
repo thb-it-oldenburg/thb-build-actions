@@ -12,6 +12,10 @@ on:
       artifact-name:
         required: true
         type: string
+    outputs:
+       package-version:
+        description: "Version out of package.json"
+        value: ${{ jobs.test-and-build-frontend.outputs.output1 }}
 
 jobs:
   test-and-build-frontend:
@@ -21,6 +25,8 @@ jobs:
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
+    outputs:
+      package-version: ${{ steps.package-version.outputs.package-version }}
 
     steps:
       - uses: actions/checkout@v3
@@ -46,6 +52,10 @@ jobs:
 
       - name: Copy neccessary files into production folder
         run: cp Dockerfile production
+        
+      - name: Read Version
+        id: package-version
+        run: node -p "require('./package.json').version" >> $GITHUB_OUTPUT
 
       - name: Upload production artifact
         uses: actions/upload-artifact@v3.0.0
