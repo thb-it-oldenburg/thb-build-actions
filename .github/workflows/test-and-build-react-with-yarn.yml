@@ -15,7 +15,7 @@ on:
     outputs:
        package-version:
         description: "Version out of package.json"
-        value: ${{ jobs.test-and-build-frontend.outputs.output1 }}
+        value: ${{ jobs.test-and-build-frontend.outputs.package-version }}
 
 jobs:
   test-and-build-frontend:
