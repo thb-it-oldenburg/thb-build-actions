@@ -35,10 +35,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Container image
-        run: docker build -t ghcr.io/thb-it-oldenburg/${{ GITHUB_REPOSITORY }}:${{ inputs.container-tag }} -t ${{ secrets.DOCKERHUB_REPOSITORY }}:latest . # Beachte den punkt am ende als Pfad
+        run: docker build -t ghcr.io/${{ GITHUB_REPOSITORY }}:${{ inputs.container-tag }} -t ${{ secrets.DOCKERHUB_REPOSITORY }}:latest . # Beachte den punkt am ende als Pfad
 
       - name: Push image to DockerHub
-        run: docker push ghcr.io/thb-it-oldenburg/${{ GITHUB_REPOSITORY }}:${{ inputs.container-tag }}
+        run: docker push ghcr.io/${{ GITHUB_REPOSITORY }}:${{ inputs.container-tag }}
 
       - name: Log out of DockerHub
         run: docker logout
