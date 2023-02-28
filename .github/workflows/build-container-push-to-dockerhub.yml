@@ -3,7 +3,7 @@ name: Create Docker container and push to dockerHub
 on:
   workflow_call:
     inputs:
-      dockerhub-tag:
+      container-tag:
         required: true
         type: string
       artifact-name:
@@ -12,13 +12,6 @@ on:
       artifact-path:
         type: string
         default: /target
-    secrets:
-      DOCKERHUB_USERNAME:
-        required: true
-      DOCKERHUB_PASSWORD:
-        required: true
-      DOCKERHUB_REPOSITORY:
-        required: true
 
 jobs:
   build-push-docker:
@@ -42,10 +35,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Container image
-        run: docker build -t ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }} -t ${{ secrets.DOCKERHUB_REPOSITORY }}:latest . # Beachte den punkt am ende als Pfad
+        run: docker build -t ghcr.io/thb-it-oldenburg/${{ GITHUB_REPOSITORY }}:${{ inputs.container-tag }} -t ${{ secrets.DOCKERHUB_REPOSITORY }}:latest . # Beachte den punkt am ende als Pfad
 
       - name: Push image to DockerHub
-        run: docker push ${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.dockerhub-tag }}
+        run: docker push ghcr.io/thb-it-oldenburg/${{ GITHUB_REPOSITORY }}:${{ inputs.container-tag }}
 
       - name: Log out of DockerHub
         run: docker logout
