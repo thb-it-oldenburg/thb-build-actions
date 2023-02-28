@@ -41,17 +41,17 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: Install dependencies
-#        run: yarn install --frozen-lockfile --ignore-scripts
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --ignore-scripts
 
-#      - name: Run tests
-#        run: "CI='true' yarn test --passWithNoTests"
+      - name: Run tests
+        run: "CI='true' yarn test --passWithNoTests"
 
-#      - name: Production build
-#        run: "BUILD_PATH='./production/build' yarn run build"
+      - name: Production build
+        run: "BUILD_PATH='./production/build' yarn run build"
 
-#      - name: Copy neccessary files into production folder
-#        run: cp Dockerfile production
+      - name: Copy neccessary files into production folder
+        run: cp Dockerfile production
         
       - name: list folder
         run: ls
@@ -63,8 +63,8 @@ jobs:
           version=$(node -p "require('./package.json').version")
           echo "package-version=$version" >> $GITHUB_OUTPUT
 
-#      - name: Upload production artifact
-#        uses: actions/upload-artifact@v3.0.0
-#        with:
-#          name: "${{ inputs.artifact-name }}"
-#          path: "${{ inputs.working-directory }}/production/"
+      - name: Upload production artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "${{ inputs.artifact-name }}"
+          path: "${{ inputs.working-directory }}/production/"
