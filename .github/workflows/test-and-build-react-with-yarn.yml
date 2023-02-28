@@ -53,6 +53,9 @@ jobs:
       - name: Copy neccessary files into production folder
         run: cp Dockerfile production
         
+      - name: list folder
+        run: ls
+      
       - name: Read Version
         id: package-version
         run: echo "$(node -p 'require(''./package.json'').version')" >> $GITHUB_OUTPUT
