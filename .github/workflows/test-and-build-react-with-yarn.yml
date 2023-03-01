@@ -51,8 +51,10 @@ jobs:
         run: "BUILD_PATH='./production/build' yarn run build"
 
       - name: Copy neccessary files into production folder
-        run: cp Dockerfile production
-        
+        run: |
+          cp Dockerfile production
+          cp docker/ production/
+          
       - name: list folder
         run: ls
       
