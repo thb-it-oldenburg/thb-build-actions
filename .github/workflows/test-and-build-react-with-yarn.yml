@@ -12,10 +12,16 @@ on:
       artifact-name:
         required: true
         type: string
+      node-variables:
+        type: string
     outputs:
        package-version:
         description: "Version out of package.json"
         value: ${{ jobs.test-and-build-frontend.outputs.package-version }}
+
+env:
+  REACT_APP_GHOST_API_URL: ${{ vars.REACT_APP_GHOST_API_URL }}
+  REACT_APP_GHOST_API_KEY: ${{ vars.REACT_APP_GHOST_API_KEY }}
 
 jobs:
   test-and-build-frontend:
