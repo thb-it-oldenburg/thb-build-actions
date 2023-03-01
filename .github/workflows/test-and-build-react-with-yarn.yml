@@ -53,7 +53,7 @@ jobs:
       - name: Copy neccessary files into production folder
         run: |
           cp Dockerfile production
-          cp docker/ production/
+          cp -r docker/ production/
           
       - name: list folder
         run: ls
