@@ -42,4 +42,4 @@ jobs:
         run: docker build -t ghcr.io/${GITHUB_REPOSITORY}:latest ${{ inputs.artifact-path }} # Im Pfad am Ende muss das Dockerfile liegen
 
       - name: Push image to DockerHub
-        run: docker push ghcr.io/${github.repository}:${{ inputs.container-tag }}
+        run: docker push ghcr.io/${GITHUB_REPOSITORY} --all-tags
