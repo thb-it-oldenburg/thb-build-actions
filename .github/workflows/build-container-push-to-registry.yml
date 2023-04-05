@@ -10,7 +10,7 @@ on:
         type: string
       artifact-path:
         type: string
-        default: /target
+        default: .
 
 jobs:
   build-push-docker:
