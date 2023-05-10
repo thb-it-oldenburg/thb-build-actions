@@ -1,0 +1,39 @@
+on:
+  workflow_call:
+    inputs:
+      build-flags:
+        type: string
+        
+    secrets:
+      EXPO_TOKEN:
+        required: true
+  
+
+jobs:
+  publish:
+    name: Build and Publish to Google Console
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build and Push to Google-Console
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas build -p android --auto-submit ${{ inputs.build-flags }}
+          
