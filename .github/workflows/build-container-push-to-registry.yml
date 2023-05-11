@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Container image with extra tag and latest
         if: inputs.container-tag != ''
-        run: docker build -t ghcr.io/${GITHUB_REPOSITORY}:v${{ inputs.container-tag }} -t ghcr.io/${GITHUB_REPOSITORY}:latest ${{ inputs.artifact-path }} # Im Pfad am Ende muss das Dockerfile liegen
+        run: docker build -t ghcr.io/${GITHUB_REPOSITORY}:${{ inputs.container-tag }} -t ghcr.io/${GITHUB_REPOSITORY}:latest ${{ inputs.artifact-path }} # Im Pfad am Ende muss das Dockerfile liegen
 
       - name: Build Container image as latest
         if: inputs.container-tag == ''
