@@ -38,7 +38,7 @@ jobs:
       artifact-name: ${{ inputs.artifact-name }}
       container-tag: ${{ inputs.container-tag }}
 
-  use-portainer-webhook:
+  use-webhook:
     needs: [use-build-container-push-to-registry]
     runs-on: ubuntu-latest
     steps:
