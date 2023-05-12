@@ -1,0 +1,47 @@
+### This workflow covers the complete build- and deployment-process for Maven Projects
+### 1. Test and build with maven
+### 2. Build a docker container image
+### 3. Push the docker container image to the github registry
+### 4. Trigger a webhook (if webhook-url is set)
+name: Full Build- and Deployment-Process for Maven Projects
+
+on:
+  workflow_call:
+    inputs:
+      container-tag:
+        type: string
+      artifact-name:
+        required: true
+        type: string
+      webhook-url:
+        type: string
+        description: "if not empty, as last step this webhook url will be called"
+
+jobs:
+  use-build-backend:
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-java-input-command.yml@v1.2.2
+    with:
+      artifact-name: ${{ inputs.artifact-name }}
+      artifact-path: "production"
+      java-version: 17
+      maven-build-command: |
+        mvn -B clean package --file pom.xml
+        mkdir production
+        ls
+        cp target/*.jar production
+        cp ./docker/Dockerfile production
+
+  use-build-container-push-to-registry:
+    needs: [use-build-backend]
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.2.3
+    with:
+      artifact-name: ${{ inputs.artifact-name }}
+      container-tag: ${{ inputs.container-tag }}
+
+  use-portainer-webhook:
+    needs: [use-build-container-push-to-registry]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Webhook
+        if: inputs.webhook-url != ''
+        run: "curl -X POST ${{ inputs.webhook-url }}"
