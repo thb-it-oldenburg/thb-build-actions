@@ -1,0 +1,40 @@
+### This workflow covers the complete build- and deployment-process for Yarn Projects
+### 1. Test and build with maven
+### 2. Build a docker container image
+### 3. Push the docker container image to the github registry
+### 4. Trigger a webhook (if webhook-url is set)
+name: Full Build- and Deployment-Process for Yarn Projects
+
+on:
+  workflow_call:
+    inputs:
+      container-tag:
+        type: string
+      artifact-name:
+        required: true
+        type: string
+      webhook-url:
+        type: string
+        description: "if not empty, as last step this webhook url will be called"
+
+jobs:
+  call-yarn-build:
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/test-and-build-react-with-yarn.yml@v1.2.1
+    with:
+      artifact-name: ${{ inputs.artifact-name }}
+
+  call-docker-build:
+    needs: [call-yarn-build]
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.2.3
+    with:
+      artifact-name: ${{ inputs.artifact-name }}
+      container-tag: ${{ inputs.container-tag }}
+      artifact-path: production
+
+  use-webhook:
+    needs: [call-docker-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Webhook
+        if: inputs.webhook-url != ''
+        run: "curl -X POST ${{ inputs.webhook-url }}"
