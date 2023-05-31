@@ -3,8 +3,8 @@ on:
   workflow_call:
     inputs:
       N-Days:
-      type: number
-      default: 1
+        type: number
+        default: 1
     outputs:
       isOlderThanNDays:
         value: ${{ jobs.is_before_N_days.outputs.isOlderThanNDays }}
