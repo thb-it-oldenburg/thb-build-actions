@@ -31,10 +31,10 @@ jobs:
           expo-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Install dependencies
-        run: yarn install
-        env:
-          GH_PKG_TOKEN: ${{ secrets.GH_PKG_TOKEN }}
+      #- name: Install dependencies
+      #  run: yarn install
+      #  env:
+      #    GH_PKG_TOKEN: ${{ secrets.GH_PKG_TOKEN }}
 
       - name: Build and Push to Google-Console
         uses: expo/expo-github-action/preview@v8
