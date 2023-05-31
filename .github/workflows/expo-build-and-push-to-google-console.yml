@@ -34,7 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-        env: ${{ secrets.GITHUB_TOKEN }}
+        env: ${{ secrets.GH_PKG_TOKEN }}
 
       - name: Build and Push to Google-Console
         uses: expo/expo-github-action/preview@v8
