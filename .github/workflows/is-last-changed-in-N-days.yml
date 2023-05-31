@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
       - id: evaluate
         run: | 
-          echo "Calculating if last commit was before ${{ inputs.N-Days }}
+          echo "Calculating if last commit was before ${{ inputs.N-Days }}"
           lastCommitDateStrictISO=$(git show --no-patch --format=%cI)
           lastCommitDate=$(date --date ${lastCommitDateStrictISO} +%s)
           dateBeforeNDays=$(date --date "${{ inputs.N-Days }} days ago" +%s)
