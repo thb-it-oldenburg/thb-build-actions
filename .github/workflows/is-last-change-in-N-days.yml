@@ -6,8 +6,8 @@ on:
       type: number
       default: 1
     outputs:
-      isLastChanged:
-        value: ${{  }}
+      isOlderThanNDays:
+        value: ${{ jobs.is_before_N_days.outputs.isOlderThanNDays }}
         description: A boolean that is true, if the last commit was before input.N-Days, false otherwise
 
 
@@ -15,7 +15,8 @@ jobs:
   is_before_N_days:
     name: Evaluate if last commit was before N days
     runs-on: ubuntu-latest
-    outputs: ${{ steps.evaluate.outputs.isOlderThanNDays }}
+    outputs:
+      isOlderThanNDays: ${{ steps.evaluate.outputs.isOlderThanNDays }}
     steps:
       - id: evaluate
         run: | 
