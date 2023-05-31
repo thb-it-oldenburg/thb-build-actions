@@ -1,0 +1,31 @@
+name: Was last commit before N days?
+on:
+  workflow_call:
+    inputs:
+      N-Days:
+      type: number
+      default: 1
+    outputs:
+      isLastChanged:
+        value: ${{  }}
+        description: A boolean that is true, if the last commit was before input.N-Days, false otherwise
+
+
+jobs:
+  is_before_N_days:
+    name: Evaluate if last commit was before N days
+    runs-on: ubuntu-latest
+    outputs: ${{ steps.evaluate.outputs.isOlderThanNDays }}
+    steps:
+      - id: evaluate
+        run: | 
+          lastCommitDateStrictISO=$(git show --no-patch --format=%cI)
+          lastCommitDate=$(date --date ${lastCommitDateStrictISO} +%s)
+          dateBeforeNDays=$(date --date "${{ inputs.N-Days }} days ago" +%s)
+          if [ "$dateBeforeNDays" -lt "$lastCommitDate" ]
+          then
+            echo true >> $GITHUB_OUTPUT
+          else
+            echo false >> $GITHUB_OUTPUT
+          fi
+          
