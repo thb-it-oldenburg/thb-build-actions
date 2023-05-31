@@ -6,8 +6,8 @@ on:
         type: number
         default: 1
     outputs:
-      isOlderThanNDays:
-        value: ${{ jobs.is_before_N_days.outputs.isOlderThanNDays }}
+      isYoungerThanNDays:
+        value: ${{ jobs.is_before_N_days.outputs.isYoungerThanNDays }}
         description: A boolean that is true, if the last commit was before input.N-Days, false otherwise
 
 
@@ -16,20 +16,23 @@ jobs:
     name: Evaluate if last commit was before N days
     runs-on: ubuntu-latest
     outputs:
-      isOlderThanNDays: ${{ steps.evaluate.outputs.isOlderThanNDays }}
+      isYoungerThanNDays: ${{ steps.evaluate.outputs.isYoungerThanNDays }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - id: evaluate
         run: | 
+          echo "Calculating if last commit was before ${{ inputs.N-Days }}
           lastCommitDateStrictISO=$(git show --no-patch --format=%cI)
           lastCommitDate=$(date --date ${lastCommitDateStrictISO} +%s)
           dateBeforeNDays=$(date --date "${{ inputs.N-Days }} days ago" +%s)
           if [ "$dateBeforeNDays" -lt "$lastCommitDate" ]
           then
-            echo "isOlderThanNDays=true" >> $GITHUB_OUTPUT
+            echo "Last commit was younger than ${{ inputs.N-Days }}"
+            echo "isYoungerThanNDays=true" >> $GITHUB_OUTPUT
           else
-            echo "isOlderThanNDays=false" >> $GITHUB_OUTPUT
+            echo "Last commit was older than ${{ inputs.N-Days }}"
+            echo "isYoungerThanNDays=false" >> $GITHUB_OUTPUT
           fi
           
