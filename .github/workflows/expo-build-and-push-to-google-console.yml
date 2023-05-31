@@ -10,12 +10,12 @@ on:
         description: A token for expo.dev access via command line
       GH_PKG_TOKEN:
         description: A readonly Repository Key of GitHub
-  
 
 jobs:
   publish:
     name: Build and Publish to Google Console
     runs-on: ubuntu-latest
+    env: ${{ secrets.GH_PKG_TOKEN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -34,7 +34,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-        env: ${{ secrets.GH_PKG_TOKEN }}
 
       - name: Build and Push to Google-Console
         uses: expo/expo-github-action/preview@v8
