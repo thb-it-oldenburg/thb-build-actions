@@ -24,8 +24,8 @@ jobs:
           dateBeforeNDays=$(date --date "${{ inputs.N-Days }} days ago" +%s)
           if [ "$dateBeforeNDays" -lt "$lastCommitDate" ]
           then
-            echo true >> $GITHUB_OUTPUT
+            echo "isOlderThanNDays=true" >> $GITHUB_OUTPUT
           else
-            echo false >> $GITHUB_OUTPUT
+            echo "isOlderThanNDays=false" >> $GITHUB_OUTPUT
           fi
           
