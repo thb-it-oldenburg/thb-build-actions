@@ -7,6 +7,9 @@ on:
     secrets:
       EXPO_TOKEN:
         required: true
+        description: A token for expo.dev access via command line
+      GH_PKG_TOKEN:
+        description: A readonly Repository Key of GitHub
   
 
 jobs:
@@ -31,6 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        env: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push to Google-Console
         uses: expo/expo-github-action/preview@v8
