@@ -25,6 +25,7 @@ jobs:
         run: | 
           echo "Calculating if last commit was before ${{ inputs.N-Days }}"
           lastCommitDateStrictISO=$(git show --no-patch --format=%cI)
+          echo "Last commit was on ${lastCommitDateStrictISO}"
           lastCommitDate=$(date --date ${lastCommitDateStrictISO} +%s)
           dateBeforeNDays=$(date --date "${{ inputs.N-Days }} days ago" +%s)
           if [ "$dateBeforeNDays" -lt "$lastCommitDate" ]
