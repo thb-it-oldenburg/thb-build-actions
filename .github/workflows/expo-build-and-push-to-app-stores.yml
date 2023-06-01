@@ -24,6 +24,9 @@ on:
         description: The Google Service key Json File. # Note that quotation marks must be inserted with escape backslash like \" .
         # The echo command will break otherwise.
         # The \n newline characters must also be removed from the private_key value. The Action will fail otherwise.
+      GH_PKG_TOKEN:
+        required: false
+        description: A token for read access to the private GitHub Repository. Just needed if you have an .npmrc that uses this environment variable
 
 jobs:
   publish:
@@ -35,6 +38,8 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v3
+        env:
+          GH_PKG_TOKEN: ${{ secrets.GH_PKG_TOKEN }}
         with:
           node-version: 18.x
           cache: yarn
