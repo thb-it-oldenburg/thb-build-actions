@@ -24,8 +24,6 @@ on:
         description: The Google Service key Json File. # Note that quotation marks must be inserted with escape backslash like \" .
         # The echo command will break otherwise.
         # The \n newline characters must also be removed from the private_key value. The Action will fail otherwise.
-      GH_PKG_TOKEN:
-        description: A readonly Repository Key of GitHub
 
 jobs:
   publish:
@@ -52,5 +50,4 @@ jobs:
         run: echo -e "${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }}" >> Service-Account-Key.json
 
       - name: Build and Push to Google-Console
-        env: ${{ secrets.GH_PKG_TOKEN }}
         run: eas build --profile ${{ inputs.build-profile }} --platform ${{ inputs.platform }}  --auto-submit-with-profile ${{ inputs.auto-submit-profile }} --non-interactive ${{ inputs.build-flags }}
