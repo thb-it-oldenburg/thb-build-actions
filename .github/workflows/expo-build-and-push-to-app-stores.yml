@@ -19,6 +19,9 @@ on:
       EXPO_TOKEN:
         required: true
         description: A token for expo.dev access via command line
+      SERVICE_ACCOUNT_KEY_FILE_CONTENT:
+        required: true
+        description: The Google Service key Json File
       GH_PKG_TOKEN:
         description: A readonly Repository Key of GitHub
 
@@ -42,6 +45,9 @@ jobs:
           expo-version: latest
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
+      
+      - name: Setup serviceAccountKey.json
+        run: echo ${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }} >> Service-Account-Key.json
 
       - name: Build and Push to Google-Console
         run: eas build --profile ${{ inputs.build-profile }} --platform ${{ inputs.platform }}  --auto-submit-with-profile ${{ inputs.auto-submit-profile }} --non-interactive ${{ inputs.build-flags }}
