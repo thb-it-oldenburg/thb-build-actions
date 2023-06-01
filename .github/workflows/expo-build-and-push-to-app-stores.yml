@@ -23,7 +23,6 @@ on:
         required: true
         description: The Google Service key Json File. # Note that quotation marks must be inserted with escape backslash like \" .
         # The echo command will break otherwise.
-        # The \n newline characters must also be removed from the private_key value. The Action will fail otherwise.
 
 jobs:
   publish:
