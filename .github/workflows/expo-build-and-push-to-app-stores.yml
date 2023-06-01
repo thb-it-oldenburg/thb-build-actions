@@ -52,4 +52,5 @@ jobs:
         run: echo -e "${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }}" >> Service-Account-Key.json
 
       - name: Build and Push to Google-Console
+        env: ${{ secrets.GH_PKG_TOKEN }}
         run: eas build --profile ${{ inputs.build-profile }} --platform ${{ inputs.platform }}  --auto-submit-with-profile ${{ inputs.auto-submit-profile }} --non-interactive ${{ inputs.build-flags }}
