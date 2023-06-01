@@ -16,6 +16,9 @@ on:
       webhook-url:
         type: string
         description: "if not empty, as last step this webhook url will be called"
+      repository-name:
+        type: string
+        description: Write the repository name WITHOUT the company name here if you wish to prune your old container images
     secrets:
       REGISTRY_TOKEN:
         required: true
@@ -45,15 +48,14 @@ jobs:
         
   clean-ghcr:
       name: Delete old unused container images
-      needs: [call-docker-build]
       runs-on: ubuntu-latest
+      if: ${{ inputs.repository-name} != ""
       steps:
-        - name: Delete containers without a tag that are older than a minute
-          uses: snok/container-retention-policy@v2
+        - name: Prune
+          uses: vlaurin/action-ghcr-prune@v0.5.0
           with:
-            image-names: ${GITHUB_REPOSITORY}
-            cut-off: One minute ago UTC
-            account-type: org
-            org-name: thb-it-oldenburg
-            untagged-only: true
-            token: ${{ secrets.REGISTRY_TOKEN }}
+            token: ${{ secrets.GITHUB_TOKEN }}
+            organization: thb-it-oldenburg
+            container: ${{ inputs.repository-name }}
+            dry-run: true # Dry-run first, then change to `false`
+            prune-untagged: true
