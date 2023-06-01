@@ -17,9 +17,9 @@ on:
         type: string
         description: "if not empty, as last step this webhook url will be called"
     secrets:
-        GITHUB_TOKEN:
-          required: true
-          description: Pass the GITHUB_TOKEN so the Action can access the GitHub Container Registry
+      REGISTRY_TOKEN:
+        required: true
+        description: Pass the GITHUB_TOKEN so the Action can access the GitHub Container Registry
         
 jobs:
   call-yarn-build:
@@ -56,4 +56,4 @@ jobs:
             account-type: org
             org-name: thb-it-oldenburg
             untagged-only: true
-            token: ${{ secrets.GITHUB_TOKEN }}
+            token: ${{ secrets.REGISTRY_TOKEN }}
