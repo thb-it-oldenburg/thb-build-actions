@@ -16,7 +16,11 @@ on:
       webhook-url:
         type: string
         description: "if not empty, as last step this webhook url will be called"
-
+    secrets:
+        GITHUB_TOKEN:
+          required: true
+          description: Pass the GITHUB_TOKEN so the Action can access the GitHub Container Registry
+        
 jobs:
   call-yarn-build:
     uses: thb-it-oldenburg/thb-build-actions/.github/workflows/test-and-build-react-with-yarn.yml@v1.2.1
