@@ -57,5 +57,4 @@ jobs:
             token: ${{ secrets.GITHUB_TOKEN }}
             organization: thb-it-oldenburg
             container: ${{ inputs.repository-name }}
-            dry-run: true # Dry-run first, then change to `false`
             prune-untagged: true
