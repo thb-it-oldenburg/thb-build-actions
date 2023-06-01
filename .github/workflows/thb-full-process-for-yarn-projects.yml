@@ -19,7 +19,7 @@ on:
     secrets:
       REGISTRY_TOKEN:
         required: true
-        description: Pass the GITHUB_TOKEN so the Action can access the GitHub Container Registry
+        description: Pass the GITHUB_TOKEN so the Action can access the GitHub Container Registry. The GITHUB_TOKEN needs write Permission to delete old Container Images!!
         
 jobs:
   call-yarn-build:
