@@ -1,8 +1,19 @@
 on:
   workflow_call:
     inputs:
+      build-profile:
+        type: string
+        default: preview
+      auto-submit-profile:
+        type: string
+        default: development
+      platform:
+        type: string
+        default: android
       build-flags:
         type: string
+        required: false
+        description: Additional flags for the eas build command
         
     secrets:
       EXPO_TOKEN:
@@ -33,4 +44,4 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build and Push to Google-Console
-        run: eas build --profile preview --platform android  --auto-submit-with-profile=development ${{ inputs.build-flags }} --non-interactive
+        run: eas build --profile ${{ inputs.build-profile }} --platform ${{ inputs.platform }}  --auto-submit-with-profile ${{ inputs.auto-submit-profile }} --non-interactive ${{ inputs.build-flags }}
