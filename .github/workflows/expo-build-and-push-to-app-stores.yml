@@ -6,7 +6,7 @@ on:
         default: preview
       auto-submit-profile:
         type: string
-        default: development
+        default: preview
       platform:
         type: string
         default: android
