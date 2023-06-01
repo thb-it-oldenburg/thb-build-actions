@@ -44,7 +44,7 @@ jobs:
       needs: [call-docker-build]
       runs-on: ubuntu-latest
       steps:
-        - name: Delete containers older than a minute
+        - name: Delete containers without a tag that are older than a minute
           uses: snok/container-retention-policy@v2
           with:
             image-names: ${GITHUB_REPOSITORY}
