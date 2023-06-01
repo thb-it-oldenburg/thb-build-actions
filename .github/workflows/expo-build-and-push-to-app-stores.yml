@@ -21,7 +21,8 @@ on:
         description: A token for expo.dev access via command line
       SERVICE_ACCOUNT_KEY_FILE_CONTENT:
         required: true
-        description: The Google Service key Json File
+        description: The Google Service key Json File. # Note that quotation marks must be inserted with escape backslash like \" .
+        # The echo command will break otherwise.
       GH_PKG_TOKEN:
         description: A readonly Repository Key of GitHub
 
