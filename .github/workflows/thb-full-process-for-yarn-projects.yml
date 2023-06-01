@@ -49,6 +49,7 @@ jobs:
   clean-ghcr:
       name: Delete old unused container images
       runs-on: ubuntu-latest
+      needs: call-docker-build
       if: ${{ inputs.repository-name} != ""
       steps:
         - name: Prune
