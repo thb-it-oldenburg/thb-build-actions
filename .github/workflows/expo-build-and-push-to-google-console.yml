@@ -33,4 +33,4 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build and Push to Google-Console
-        run: eas build -p android --auto-submit ${{ inputs.build-flags }}
+        run: eas build --platform=android --profile=preview --auto-submit-with-profile=development ${{ inputs.build-flags }} --non-interactive
