@@ -16,9 +16,10 @@ on:
       webhook-url:
         type: string
         description: "if not empty, as last step this webhook url will be called"
-      repository-name:
-        type: string
-        description: Write the repository name WITHOUT the company name here if you wish to prune your old container images
+      prune-untagged-container-images:
+        type: boolean
+        default: true
+        description: Set to false if you do not want to remove old container images
     secrets:
       REGISTRY_TOKEN:
         required: true
@@ -29,10 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo ${{ github.repository }}
-          echo ${{ github.repository_owner }}
-          echo $(basename ${{ github.repository }})
-          echo ${{ secrets.GITHUB_TOKEN }}
+          echo ${GITHUB_REPOSITORY}
+          echo ${GITHUB_REPOSITORY_OWNER}
+          echo $(basename ${GITHUB_REPOSITORY})
       
   call-yarn-build:
     uses: thb-it-oldenburg/thb-build-actions/.github/workflows/test-and-build-react-with-yarn.yml@v1.2.1
@@ -59,12 +59,12 @@ jobs:
       name: Delete old unused container images
       runs-on: ubuntu-latest
       needs: call-docker-build
-      if: ${{ inputs.repository-name }} != ""
+      if: ${{ inputs.prune-untagged-container-images }}
       steps:
         - name: Prune
           uses: vlaurin/action-ghcr-prune@v0.5.0
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            organization: thb-it-oldenburg
-            container: ${{ inputs.repository-name }}
+            organization: ${{ github.repository_owner }}
+            container: $(basename ${{ github.repository }})
             prune-untagged: true
