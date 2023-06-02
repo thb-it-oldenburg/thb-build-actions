@@ -16,10 +16,6 @@ on:
       webhook-url:
         type: string
         description: "if not empty, as last step this webhook url will be called"
-      remove-untagged-container-images:
-        type: boolean
-        default: true
-        description: Set to false if you do not want to remove old container images
         
 jobs:      
   call-yarn-build:
@@ -46,5 +42,4 @@ jobs:
   clean-ghcr:
       name: Remove old unused container images
       needs: call-docker-build
-      if: ${{ inputs.remove-untagged-container-images }}
       uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@main
