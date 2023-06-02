@@ -46,12 +46,7 @@ jobs:
         if: inputs.webhook-url != ''
         run: "curl -X POST ${{ inputs.webhook-url }}"
 
-  use-delete-untagged-packages: 
-    needs: [use-webhook]
-    uses: Chizkiyahu/delete-untagged-ghcr-action@v2
-    with:
-      token: ${{ secrets.GITHUB_TOKEN }}
-      repository_owner: ${{ github.repository_owner }}
-      repository: ${{ github.repository }}
-      untagged_only: true
-      owner_type: org # or user
+  clean-git-hub-container-registry:
+      name: Remove old unused container images
+      needs: use-build-container-push-to-registry
+      uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@main
