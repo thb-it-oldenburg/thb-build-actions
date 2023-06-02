@@ -46,4 +46,5 @@ jobs:
   clean-ghcr:
       name: Delete old unused container images
       needs: call-docker-build
+      if: ${{ inputs.prune-untagged-container-images }}
       uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@main
