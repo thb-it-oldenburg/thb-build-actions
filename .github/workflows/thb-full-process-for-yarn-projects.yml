@@ -32,6 +32,7 @@ jobs:
           echo ${{ github.repository }}
           echo ${{ github.repository_owner }}
           echo $(basename ${{ github.repository }})
+          echo ${{ secrets.GITHUB_TOKEN }}
       
   call-yarn-build:
     uses: thb-it-oldenburg/thb-build-actions/.github/workflows/test-and-build-react-with-yarn.yml@v1.2.1
