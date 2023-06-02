@@ -25,6 +25,14 @@ on:
         description: Pass the GITHUB_TOKEN so the Action can access the GitHub Container Registry. The GITHUB_TOKEN needs write Permission to delete old Container Images!!
         
 jobs:
+  print-repo-name:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo ${{ github.repository }}
+          echo ${{ github.repository_owner }}
+          echo $(basename ${{ github.repository }})
+      
   call-yarn-build:
     uses: thb-it-oldenburg/thb-build-actions/.github/workflows/test-and-build-react-with-yarn.yml@v1.2.1
     with:
