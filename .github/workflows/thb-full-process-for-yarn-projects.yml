@@ -39,7 +39,7 @@ jobs:
         if: inputs.webhook-url != ''
         run: "curl -X POST ${{ inputs.webhook-url }}"
         
-  clean-ghcr:
+  clean-git-hub-container-registry:
       name: Remove old unused container images
       needs: call-docker-build
       uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@main
