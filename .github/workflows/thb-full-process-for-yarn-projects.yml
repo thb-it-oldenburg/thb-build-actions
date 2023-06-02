@@ -45,14 +45,5 @@ jobs:
         
   clean-ghcr:
       name: Delete old unused container images
-      runs-on: ubuntu-latest
       needs: call-docker-build
-      if: ${{ inputs.prune-untagged-container-images }}
-      steps:
-        - name: Prune
-          uses: vlaurin/action-ghcr-prune@v0.5.0
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            organization: ${GITHUB_REPOSITORY_OWNER}
-            container: $(basename ${GITHUB_REPOSITORY})
-            prune-untagged: true
+      uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@main
