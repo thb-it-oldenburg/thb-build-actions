@@ -51,7 +51,8 @@ jobs:
           
       - name: Create .npmrc with environment variable for GHPR
         run: |
-          echo -e "//npm.pkg.github.com/:_authToken=${GH_PKG_TOKEN}\n@thb-it-oldenburg:registry=https://npm.pkg.github.com/"
+          echo -e "//npm.pkg.github.com/:_authToken=${GH_PKG_TOKEN}\n@thb-it-oldenburg:registry=https://npm.pkg.github.com/" >> .npmrc
+          cat .npmrc
 
       - name: Build and Push to Google-Console
         run: eas build --profile ${{ inputs.build-profile }} --platform ${{ inputs.platform }}  --auto-submit-with-profile ${{ inputs.auto-submit-profile }} --non-interactive ${{ inputs.build-flags }}
