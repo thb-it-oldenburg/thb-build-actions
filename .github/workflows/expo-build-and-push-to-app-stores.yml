@@ -46,7 +46,7 @@ jobs:
       
       - name: Setup serviceAccountKey.json
         run: |
-          base64 --decode "${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }}" >> Service-Account-Key.json
+          echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }}' | base64 --decode >> Service-Account-Key.json
           
       - name: Create .npmrc with environment variable for GHPR
         run: |
