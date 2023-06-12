@@ -21,8 +21,7 @@ on:
         description: A token for expo.dev access via command line
       SERVICE_ACCOUNT_KEY_FILE_CONTENT:
         required: true
-        description: The Google Service key Json File. # Note that quotation marks must be inserted with escape backslash like \" .
-        # The echo command will break otherwise.
+        description: The Google Service key Json File. # Note that the filecontent should be encoded with base64
 
 jobs:
   publish:
@@ -47,11 +46,11 @@ jobs:
       
       - name: Setup serviceAccountKey.json
         run: |
-          echo "${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }}" >> Service-Account-Key.json
+          base64 --decode "${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }}" >> Service-Account-Key.json
           
       - name: Create .npmrc with environment variable for GHPR
         run: |
-          echo -e '//npm.pkg.github.com/:_authToken=\$\{GH_PKG_TOKEN\}\n@thb-it-oldenburg:registry=https://npm.pkg.github.com/' >> .npmrc
+          echo -e '//npm.pkg.github.com/:_authToken=${GH_PKG_TOKEN}\n@thb-it-oldenburg:registry=https://npm.pkg.github.com/' >> .npmrc
           cat .npmrc
 
       - name: Build and Push to Google-Console
