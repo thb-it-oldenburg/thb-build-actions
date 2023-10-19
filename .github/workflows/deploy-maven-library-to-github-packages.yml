@@ -15,8 +15,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
+      - run: mvn install
       - name: Publish package
-        run: mvn -B deploy -DuniqueVersion=false
+        run: mvn -B deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: ls ./target
