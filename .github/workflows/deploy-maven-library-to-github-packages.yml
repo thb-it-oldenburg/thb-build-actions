@@ -19,5 +19,5 @@ jobs:
         run: mvn -B deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: ls
+      - run: ls ./target
         if: always()
