@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Publish package
-        run: mvn -B deploy
+        run: mvn -B deploy -DuniqueVersion=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: ls ./target
