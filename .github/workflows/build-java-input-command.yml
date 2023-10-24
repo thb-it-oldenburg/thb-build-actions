@@ -54,6 +54,7 @@ jobs:
                 "url": "https://maven.pkg.github.com/thb-it-oldenburg/*",
                 "snapshots": {
                   "enabled": "true"
+                }
               }
             ]
           
