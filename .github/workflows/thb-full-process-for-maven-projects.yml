@@ -19,7 +19,7 @@ on:
 
 jobs:
   use-build-backend:
-    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-java-input-command.yml@v1.2.2
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-java-input-command.yml@main
     with:
       artifact-name: ${{ inputs.artifact-name }}
       artifact-path: "production"
