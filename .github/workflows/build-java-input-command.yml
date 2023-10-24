@@ -69,7 +69,8 @@ jobs:
       - name: Show maven version
         run: |
           mvn --version
-          cat ./.m2/settings.xml
+          ls
+          cat .m2/settings.xml
 
       - name: Build project with Maven
         run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
