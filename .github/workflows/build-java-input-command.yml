@@ -70,7 +70,7 @@ jobs:
         run: |
           mvn --version
           ls
-          cat .m2/settings.xml
+          cat /home/runner/.m2/settings.xml
 
       - name: Build project with Maven
         run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
