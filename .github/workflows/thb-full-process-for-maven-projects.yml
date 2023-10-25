@@ -16,6 +16,11 @@ on:
       webhook-url:
         type: string
         description: "if not empty, as last step this webhook url will be called"
+    secrets:
+      repo-access-username:
+        description: A username wich owns a repository read access token
+      repo-access-token:
+        description: The personal access token of the passed repo-access-username
 
 jobs:
   use-build-backend:
@@ -30,6 +35,9 @@ jobs:
         ls
         cp target/*.jar production
         cp ./docker/Dockerfile production
+    secrets:
+      repo-access-username: ${{ secrets.repo-access-username }}
+      repo-access-token:  ${{ secrets.repo-access-token }}
 
   use-build-container-push-to-registry:
     needs: [use-build-backend]
