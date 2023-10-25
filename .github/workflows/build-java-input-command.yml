@@ -32,11 +32,6 @@ jobs:
     env:
       repo-access-username: ${{ secrets.repo-access-username }}
       repo-access-token: ${{ secrets.repo-access-token }}
-      
-    permissions:
-      repository-projects: read
-      packages: read
-      contents: read
 
     steps:
       - uses: actions/checkout@v3
