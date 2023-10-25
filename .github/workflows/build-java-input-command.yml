@@ -30,8 +30,8 @@ jobs:
     name: Test and build backend code
     runs-on: ubuntu-latest
     env:
-      repo-access-username: ${{ secrets.repo-access-username }}
-      repo-access-token:  ${{ secrets.repo-access-token }}
+      repo_access_username: ${{ secrets.repo-access-username }}
+      repo_access_token:  ${{ secrets.repo-access-token }}
 
     steps:
       - uses: actions/checkout@v3
@@ -52,8 +52,8 @@ jobs:
             [
               {
                 "id": "github",
-                "username": "${{env.repo-access-username}}",
-                "password": "${{env.repo-access-token}}"
+                "username": "${env.repo_access_username}",
+                "password": "${env.repo_access_token}"
               }
             ]
           
