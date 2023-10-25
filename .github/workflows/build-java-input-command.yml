@@ -29,6 +29,10 @@ jobs:
   build-backend:
     name: Test and build backend code
     runs-on: ubuntu-latest
+    env:
+      repo-access-username: ${{ secrets.repo-access-username }}
+      repo-access-token: ${{ secrets.repo-access-token }}
+      
     permissions:
       repository-projects: read
       packages: read
@@ -45,7 +49,7 @@ jobs:
           check-latest: true
 
       - name: 'Create settings.xml'
-        if: secrets.repo-access-username != 0
+        if: ${{ env.repo-access-username != 0 }}
         uses: s4u/maven-settings-action@v2.8.0
         with:
           githubServer: false
