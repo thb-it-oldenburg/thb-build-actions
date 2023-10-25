@@ -71,14 +71,14 @@ jobs:
           ls
           cat /home/runner/.m2/settings.xml
 
-      #- name: Build project with Maven
-        #run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
-        #env:
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#
-      #- name: Upload production artifact
-        #uses: actions/upload-artifact@v3.0.0
-        #with:
-          #name: "${{ inputs.artifact-name }}"
-          #path: "${{ inputs.artifact-path }}/"
-          #if-no-files-found: error
+      - name: Build project with Maven
+        run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload production artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "${{ inputs.artifact-name }}"
+          path: "${{ inputs.artifact-path }}/"
+          if-no-files-found: error
