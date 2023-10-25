@@ -20,6 +20,10 @@ on:
     secrets:
       maven-build-secrets:
         description: Pass in parameters containing secrets for the build command
+      repo-access-username:
+        description: A username wich owns a repository read access token
+      repo-access-token:
+        description: The personal access token of the passed repo-access-username
 
 jobs:
   build-backend:
@@ -41,7 +45,19 @@ jobs:
           check-latest: true
 
       - name: 'Create settings.xml'
+        if: secrets.repo-access-username != 0
         uses: s4u/maven-settings-action@v2.8.0
+        with:
+          githubServer: false
+          servers: |
+            [
+              {
+                "id": "github",
+                "username": "${env.repo-access-username}"
+                "password": "${env.repo-access-token}"
+                }
+              }
+            ]
           
       - name: Cache local Maven repository
         uses: actions/cache@v3
