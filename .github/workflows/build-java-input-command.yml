@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       repo-access-username: ${{ secrets.repo-access-username }}
-      repo-access-token: ${{ secrets.repo-access-token }}
+      repo-access-token:  Hallo #${{ secrets.repo-access-token }}
 
     steps:
       - uses: actions/checkout@v3
@@ -53,7 +53,7 @@ jobs:
               {
                 "id": "github",
                 "username": "${{env.repo-access-username}}",
-                "password": "${env.repo-access-token}"
+                "password": "${{env.repo-access-token}}"
               }
             ]
           
@@ -71,14 +71,14 @@ jobs:
           ls
           cat /home/runner/.m2/settings.xml
 
-      - name: Build project with Maven
-        run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload production artifact
-        uses: actions/upload-artifact@v3.0.0
-        with:
-          name: "${{ inputs.artifact-name }}"
-          path: "${{ inputs.artifact-path }}/"
-          if-no-files-found: error
+      #- name: Build project with Maven
+        #run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
+        #env:
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+      #- name: Upload production artifact
+        #uses: actions/upload-artifact@v3.0.0
+        #with:
+          #name: "${{ inputs.artifact-name }}"
+          #path: "${{ inputs.artifact-path }}/"
+          #if-no-files-found: error
