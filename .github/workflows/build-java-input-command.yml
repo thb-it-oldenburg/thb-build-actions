@@ -49,7 +49,7 @@ jobs:
           check-latest: true
 
       - name: 'Create settings.xml'
-        if: ${{ env.repo-access-username != 0 }}
+        if: ${{ env.repo-access-username != 0 && env.repo-access-token != 0}}
         uses: s4u/maven-settings-action@v2.8.0
         with:
           githubServer: false
