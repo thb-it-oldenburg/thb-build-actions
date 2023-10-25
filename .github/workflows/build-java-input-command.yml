@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       repo-access-username: ${{ secrets.repo-access-username }}
-      repo-access-token:  Hallo #${{ secrets.repo-access-token }}
+      repo-access-token:  ${{ secrets.repo-access-token }}
 
     steps:
       - uses: actions/checkout@v3
