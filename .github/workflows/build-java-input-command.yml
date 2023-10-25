@@ -37,28 +37,14 @@ jobs:
           check-latest: true
 
       - name: 'Create settings.xml'
-        uses: whelk-io/maven-settings-xml-action@v4
+        uses: s4u/maven-settings-action@v2.8.0
         with:
           servers: |
             [
               {
                 "id": "github",
-                "username": "${{ secrets.GITHUB_ACTOR }}",
-                "password": "${{ secrets.GITHUB_TOKEN }}"
-              }
-            ]
-          repositories: |
-            [
-              {
-                "id": "github",
-                "name": "GitHub Packages",
-                "url": "https://maven.pkg.github.com/thb-it-oldenburg/*",
-                "releases": {
-                  "enabled": "true"
-                },
-                "snapshots": {
-                  "enabled": "true"
-                }
+                "username": "$GITHUB_ACTOR",
+                "password": "$GITHUB_TOKEN"
               }
             ]
           
@@ -75,6 +61,7 @@ jobs:
           mvn --version
           ls
           cat /home/runner/.m2/settings.xml
+          echo $GITHUB_ACTOR
 
       - name: Build project with Maven
         run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
