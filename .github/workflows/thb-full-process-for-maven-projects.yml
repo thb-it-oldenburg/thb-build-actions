@@ -30,7 +30,7 @@ jobs:
       artifact-path: "production"
       java-version: 17
       maven-build-command: |
-        mvn -B clean package --file pom.xml
+        mvn -B clean package --file pom.xml -U
         mkdir production
         ls
         cp target/*.jar production
