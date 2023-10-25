@@ -25,6 +25,10 @@ jobs:
   build-backend:
     name: Test and build backend code
     runs-on: ubuntu-latest
+    permissions:
+      repository-projects: read
+      packages: read
+      contents: read
 
     steps:
       - uses: actions/checkout@v3
