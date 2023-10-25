@@ -52,8 +52,8 @@ jobs:
             [
               {
                 "id": "github",
-                "username": "${env.repo-access-username}",
-                "password": "{${env.repo-access-token}}"
+                "username": "${{env.repo-access-username}}",
+                "password": "${env.repo-access-token}"
               }
             ]
           
