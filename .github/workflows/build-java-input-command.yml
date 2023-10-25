@@ -38,15 +38,6 @@ jobs:
 
       - name: 'Create settings.xml'
         uses: s4u/maven-settings-action@v2.8.0
-        with:
-          servers: |
-            [
-              {
-                "id": "github",
-                "username": "$GITHUB_ACTOR",
-                "password": "$GITHUB_TOKEN"
-              }
-            ]
           
       - name: Cache local Maven repository
         uses: actions/cache@v3
