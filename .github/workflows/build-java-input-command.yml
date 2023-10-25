@@ -75,7 +75,6 @@ jobs:
           mvn --version
           ls
           cat /home/runner/.m2/settings.xml
-          echo ${{env.repo-access-username}}
 
       - name: Build project with Maven
         run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
