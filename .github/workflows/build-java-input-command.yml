@@ -65,11 +65,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
             
-      - name: Show maven version
+      - name: Show maven version and list current folder
         run: |
           mvn --version
           ls
-          cat /home/runner/.m2/settings.xml
 
       - name: Build project with Maven
         run: ${{ inputs.maven-build-command }} ${{ secrets.maven-build-secrets }}
