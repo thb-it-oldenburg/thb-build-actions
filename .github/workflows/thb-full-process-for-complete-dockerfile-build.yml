@@ -15,7 +15,6 @@ on:
         
 jobs:      
   call-docker-build:
-    needs: [call-yarn-build]
     uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@main
     with:
       container-tag: ${{ inputs.container-tag }}
