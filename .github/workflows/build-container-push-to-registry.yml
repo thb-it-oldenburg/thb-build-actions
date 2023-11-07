@@ -6,7 +6,6 @@ on:
       container-tag:
         type: string
       artifact-name:
-        required: true
         type: string
       artifact-path:
         type: string
@@ -18,10 +17,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v3
+      - name: Download Artifact
+        if: inputs.artifact-name != ''
+        uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifact-name }}
           path: ${{ inputs.artifact-path }}
+
+      - name: Checkout Repository
+        if: inputs.artifact-name == ''
+        uses: actions/checkout@v4
 
       - name: List current directory
         run: ls
