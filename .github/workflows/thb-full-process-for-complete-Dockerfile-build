@@ -1,0 +1,34 @@
+### This workflow covers the complete build- and deployment-process for Projects, wich have their complete installation defined by the 'Dockerfile' in the root of their repository
+### 1. Build a docker container image
+### 2. Push the docker container image to the github registry
+### 3. Trigger a webhook (if webhook-url is set)
+name: Full Build- and Deployment-Process for Yarn Projects
+
+on:
+  workflow_call:
+    inputs:
+      container-tag:
+        type: string
+      webhook-url:
+        type: string
+        description: "if not empty, as last step this webhook url will be called"
+        
+jobs:      
+  call-docker-build:
+    needs: [call-yarn-build]
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@main
+    with:
+      container-tag: ${{ inputs.container-tag }}
+
+  use-webhook:
+    needs: [call-docker-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Webhook
+        if: inputs.webhook-url != ''
+        run: "curl -X POST ${{ inputs.webhook-url }}"
+        
+  clean-git-hub-container-registry:
+      name: Remove old unused container images
+      needs: call-docker-build
+      uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@v1.2.4
