@@ -11,7 +11,7 @@ on:
       container-tag:
         type: string
       artifact-name:
-        required: true
+        default: ${GITHUB_REPOSITORY}
         type: string
       webhook-url:
         type: string
