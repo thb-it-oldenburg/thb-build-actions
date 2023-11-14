@@ -41,7 +41,7 @@ jobs:
       - name: Create file with GitHub Token for Dockerfile build
         run: |
           cat <<- EOF > github_token.txt
-            ${{ secrets.GITHUB_TOKEN }}
+          ${{ secrets.GITHUB_TOKEN }}
           EOF
 
       - name: Build Container image with extra tag and latest
