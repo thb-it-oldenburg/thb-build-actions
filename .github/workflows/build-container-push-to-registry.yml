@@ -42,7 +42,7 @@ jobs:
         run: |
           cat <<- EOF > github_token.txt
             ${{ secrets.GITHUB_TOKEN }}
-            EOF
+          EOF
 
       - name: Build Container image with extra tag and latest
         if: inputs.container-tag != ''
