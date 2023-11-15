@@ -28,4 +28,3 @@ Dadurch kann das Dockerfile zum Beispiel auf die GitHub Registry zugreifen. Wenn
 `RUN --mount=type=secret,id=github_token`
 
 steht, liegt das Token anschließend im Dockerfile /run/secrets/github_token. Da diese secret Dateien nicht persistiert werden, sondern in-memory nur kurzzeitig gespeichert werden, wird das Token nach dem Build Prozess nicht in dem Image landen!
-Siehe auch https://render.com/docs/docker-secrets
