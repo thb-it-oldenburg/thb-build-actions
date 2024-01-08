@@ -38,12 +38,6 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
       
-      - name: change .env
-        run: |
-          rm .env
-          echo -e "\nREACT_APP_GATEWAY_HOSTNAME=${{ vars.REACT_APP_GATEWAY_HOSTNAME }}\nREACT_APP_API_PROTOCOL=${{ vars.REACT_APP_API_PROTOCOL }}" >> .env
-          cat .env
-      
       - name: Setup Service-Account-Key.json
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT }}' | base64 --decode >> Service-Account-Key.json
