@@ -28,3 +28,7 @@ Dadurch kann das Dockerfile zum Beispiel auf die GitHub Registry zugreifen. Wenn
 `RUN --mount=type=secret,id=github_token`
 
 steht, liegt das Token anschließend im Dockerfile /run/secrets/github_token. Da diese secret Dateien nicht persistiert werden, sondern in-memory nur kurzzeitig gespeichert werden, wird das Token nach dem Build Prozess nicht in dem Image landen!
+
+## Willkürliche Secret Datei
+Es ist es möglich eine Datei als Secret zu übergeben. Dafür müssen die Keys `secret.file-name` und `secret.file-content` ausgefüllt werden.
+Diese Datei ist zur freien Verwendung gedacht und steht im Docker build Prozess zur Verfügung. Du kannst sie also im Dockerfile verwenden.
