@@ -23,10 +23,10 @@ on:
         description: The personal access token of the passed repo-access-username
       file-name:
         required: false
-        description: If given, creates a file to use freely in the docker build
+        description: If given, creates a file to use freely in the docker build.
       file-content:
         required: false
-        description: Necessary if file-name is given
+        description: Necessary if file-name is given. Must be base64 encoded.
 
 jobs:
   use-build-backend:
