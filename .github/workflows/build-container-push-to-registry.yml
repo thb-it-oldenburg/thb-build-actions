@@ -54,7 +54,7 @@ jobs:
 
       - name: Create file with GitHub Token for Dockerfile build
         run: |
-          echo '${{ secrets.file-content }}' | base64 --decode >> ${{ file-name }}
+          echo '${{ secrets.file-content }}' | base64 --decode >> ${{ secrets.file-name }}
 
       - name: Build Container image with extra tag and latest
         if: inputs.container-tag != ''
