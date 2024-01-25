@@ -10,6 +10,13 @@ on:
       artifact-path:
         type: string
         default: .
+    secrets:
+      file-name:
+        required: false
+        description: If given, creates a file to use freely in the docker build
+      file-content:
+        required: false
+        description: Necessary if file-name is given
 
 jobs:
   build-push-docker:
@@ -17,6 +24,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Create User defined secret file
+        if: secrets.filename != ''
+        run: |
+          cat <<- EOF > ${{ secrets.file-name }}
+          ${{ secrets.file-content }}
+          EOF
+      
       - name: Download Artifact
         if: inputs.artifact-name != ''
         uses: actions/download-artifact@v3
