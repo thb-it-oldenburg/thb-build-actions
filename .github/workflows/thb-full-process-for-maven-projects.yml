@@ -21,6 +21,12 @@ on:
         description: A username wich owns a repository read access token
       repo-access-token:
         description: The personal access token of the passed repo-access-username
+      file-name:
+        required: false
+        description: If given, creates a file to use freely in the docker build
+      file-content:
+        required: false
+        description: Necessary if file-name is given
 
 jobs:
   use-build-backend:
@@ -41,10 +47,13 @@ jobs:
 
   use-build-container-push-to-registry:
     needs: [use-build-backend]
-    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.2.3
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@main
     with:
       artifact-name: ${{ inputs.artifact-name }}
       container-tag: ${{ inputs.container-tag }}
+    secrets:
+      file-name: ${{ secrets.file-name }}
+      file-content: ${{ secrets.file-content }}
 
   use-webhook:
     needs: [use-build-container-push-to-registry]
