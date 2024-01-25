@@ -13,10 +13,10 @@ on:
     secrets:
       file-name:
         required: false
-        description: If given, creates a file to use freely in the docker build
+        description: If given, creates a file to use freely in the docker build.
       file-content:
         required: false
-        description: Necessary if file-name is given
+        description: Necessary if file-name is given. Must be base64 encoded.
 
 jobs:
   build-push-docker:
@@ -54,9 +54,7 @@ jobs:
 
       - name: Create file with GitHub Token for Dockerfile build
         run: |
-          cat <<- EOF > github_token.txt
-          ${{ secrets.GITHUB_TOKEN }}
-          EOF
+          echo '${{ secrets.file-content }}' | base64 --decode >> ${{ file-name }}
 
       - name: Build Container image with extra tag and latest
         if: inputs.container-tag != ''
