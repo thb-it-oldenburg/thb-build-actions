@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Create User defined secret file
-        if: secrets.filename != ''
+        if: secrets.file-name != ''
         run: |
           cat <<- EOF > ${{ secrets.file-name }}
           ${{ secrets.file-content }}
