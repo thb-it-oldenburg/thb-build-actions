@@ -32,3 +32,6 @@ steht, liegt das Token anschließend im Dockerfile /run/secrets/github_token. Da
 ## Willkürliche Secret Datei
 Es ist es möglich eine Datei als Secret zu übergeben. Dafür müssen die Keys `secret.file-name` und `secret.file-content` ausgefüllt werden.
 Diese Datei ist zur freien Verwendung gedacht und steht im Docker build Prozess zur Verfügung. Du kannst sie also im Dockerfile verwenden.
+
+Beachte, dass der Inhalt von `secret.file-content` base64 verschlüsselt sein muss.
+Dafür kannst du in cygwin `echo "meinText" | base64` ausführen.
