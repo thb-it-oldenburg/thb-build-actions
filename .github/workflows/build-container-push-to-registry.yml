@@ -10,13 +10,14 @@ on:
       artifact-path:
         type: string
         default: .
-    secrets:
       file-name:
+        type: string
         required: false
-        description: If given, creates a file to use freely in the docker build.
+        description: If given, creates a fileto use freely in the docker build. Content will be secrets.file-content 
+    secrets:
       file-content:
         required: false
-        description: Necessary if file-name is given. Must be base64 encoded.
+        description: Necessary if inputs.file-name is given. Must be base64 encoded.
 
 jobs:
   build-push-docker:
