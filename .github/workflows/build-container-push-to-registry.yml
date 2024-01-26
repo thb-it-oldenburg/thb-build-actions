@@ -27,10 +27,10 @@ jobs:
     steps:
       - name: Create User defined secret file
         if: inputs.file-name != ''
-        run: |
-          fileContent=$('${{ secrets.file-content }}' | base64 --decode)
-          echo Written ${#fileContent} characters
-          echo '${{ secrets.file-content }}' | base64 --decode >> ${{ inputs.file-name }}
+        run: 'echo "$SECRET_FILE_CONTENT" >> ${{ inputs.file-name }}'
+        shell: bash
+        env:
+          SECRET_FILE_CONTENT: ${{ secrets.file-content }}
       
       - name: Download Artifact
         if: inputs.artifact-name != ''
