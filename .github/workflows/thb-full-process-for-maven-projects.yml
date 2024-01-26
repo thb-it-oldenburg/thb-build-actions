@@ -51,8 +51,8 @@ jobs:
     with:
       artifact-name: ${{ inputs.artifact-name }}
       container-tag: ${{ inputs.container-tag }}
-    secrets:
       file-name: ${{ secrets.file-name }}
+    secrets:
       file-content: ${{ secrets.file-content }}
 
   use-webhook:
