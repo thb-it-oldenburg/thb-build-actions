@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Create User defined secret file
         if: inputs.file-name != ''
-        run: 'echo "$SECRET_FILE_CONTENT" >> ${{ inputs.file-name }}'
+        run: 'echo "$SECRET_FILE_CONTENT" | base64 --decode >> ${{ inputs.file-name }}'
         shell: bash
         env:
           SECRET_FILE_CONTENT: ${{ secrets.file-content }}
