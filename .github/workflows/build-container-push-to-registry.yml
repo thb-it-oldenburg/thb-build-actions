@@ -26,11 +26,9 @@ jobs:
 
     steps:
       - name: Create User defined secret file
-        if: secrets.file-name != ''
+        if: inputs.file-name != ''
         run: |
-          cat <<- EOF > ${{ secrets.file-name }}
-          ${{ secrets.file-content }}
-          EOF
+          echo '${{ secrets.file-content }}' | base64 --decode >> ${{ inputs.file-name }}
       
       - name: Download Artifact
         if: inputs.artifact-name != ''
@@ -52,10 +50,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create file with GitHub Token for Dockerfile build
-        run: |
-          echo '${{ secrets.file-content }}' | base64 --decode >> ${{ secrets.file-name }}
 
       - name: Build Container image with extra tag and latest
         if: inputs.container-tag != ''
