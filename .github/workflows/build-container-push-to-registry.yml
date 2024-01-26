@@ -28,6 +28,8 @@ jobs:
       - name: Create User defined secret file
         if: inputs.file-name != ''
         run: |
+          fileContent=$(${{ secrets.file-content }}' | base64 --decode)
+          echo Written ${#fileContent} characters
           echo '${{ secrets.file-content }}' | base64 --decode >> ${{ inputs.file-name }}
       
       - name: Download Artifact
