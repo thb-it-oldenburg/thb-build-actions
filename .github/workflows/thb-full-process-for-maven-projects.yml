@@ -16,14 +16,15 @@ on:
       webhook-url:
         type: string
         description: "if not empty, as last step this webhook url will be called"
+      file-name:
+        type: string
+        required: false
+        description: If given, creates a file to use freely in the docker build.
     secrets:
       repo-access-username:
         description: A username wich owns a repository read access token
       repo-access-token:
         description: The personal access token of the passed repo-access-username
-      file-name:
-        required: false
-        description: If given, creates a file to use freely in the docker build.
       file-content:
         required: false
         description: Necessary if file-name is given. Must be base64 encoded.
@@ -51,7 +52,7 @@ jobs:
     with:
       artifact-name: ${{ inputs.artifact-name }}
       container-tag: ${{ inputs.container-tag }}
-      file-name: ${{ secrets.file-name }}
+      file-name: ${{ inputs.file-name }}
     secrets:
       file-content: ${{ secrets.file-content }}
 
