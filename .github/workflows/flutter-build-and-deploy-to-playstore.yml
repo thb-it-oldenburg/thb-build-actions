@@ -1,3 +1,4 @@
+name: Flutter build and deploy
 on:
   workflow_call:
     inputs:
@@ -21,8 +22,8 @@ on:
         required: true
 
 jobs:
-  build:
-    runs-on: ubuntu
+  build-flutter-and-deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
