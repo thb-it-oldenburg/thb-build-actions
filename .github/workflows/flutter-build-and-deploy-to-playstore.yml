@@ -49,6 +49,7 @@ jobs:
         uses: actions/setup-java@v4.1.0
         with:
           java-version: ${{ inputs.java-version }}
+          distribution: adopt
 
       - name: install bundler for fastlane execution
         run: gem install bundler
