@@ -33,6 +33,9 @@ jobs:
         run: |
           echo '${{ secrets.KEYSTORE_INFORMATION_FILE_BASE64 }}' | base64 --decode >> android/key.properties
 
+      - name: list android folder
+        run: ls android
+
       - name: Setup keystore
         run: |
           echo '${{ secrets.KEYSTORE_SIGNING_KEY_BASE64 }}' | base64 --decode >> upload-keystore.jks
@@ -63,8 +66,13 @@ jobs:
       - name: list directory
         run: ls
 
+      - name: Check if setup is okay
+        run: flutter doctor --verbose
+
       - name: prepare build
-        run: flutter build appbundle
+        run: |
+          echo $PWD
+          flutter build appbundle
 
       - name: Run fastlane to build flutter app and deploy to given track
         run: cd android && bundle exec fastlane ${{ inputs.track }}
