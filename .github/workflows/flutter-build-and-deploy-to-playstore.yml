@@ -66,13 +66,12 @@ jobs:
       - name: list directory
         run: ls
 
-      - name: Check if setup is okay
-        run: flutter doctor --verbose
+      - run: flutter pub get
+      
+      - run: flutter test
 
       - name: prepare build
-        run: |
-          echo $PWD
-          flutter build appbundle
+        run: flutter build appbundle
 
       - name: Run fastlane to build flutter app and deploy to given track
         run: cd android && bundle exec fastlane ${{ inputs.track }}
