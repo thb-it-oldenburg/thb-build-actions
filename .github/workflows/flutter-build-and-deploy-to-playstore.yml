@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+    inputs:
+      track:
+        type: string
+        default: 'internal'
+    secrets:
+      SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64:
+        required: true
+        description: The Google Service key Json File. Note that the filecontent should be encoded with base64.
+      KEYSTORE_INFORMATION_FILE_BASE64:
+        description: 'See Readme. Contains stuff that belongs in the file "key.properties". Also base64 encoded.'
+      KEYSTORE_SIGNING_KEY_BASE64:
+        description: The keystore file containing your private upload key encoded with base 64
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu
+    steps:
+      - name: Setup Service-Account-Key.json
+        run: |
+          echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64 }}' | base64 --decode >> Service-Account-Key.json
+
+      - name: Setup key.properties file
+        run: |
+          echo '${{ secrets.KEYSTORE_INFORMATION_FILE_BASE64 }}' | base64 --decode >> key.properties
+
+      - name: Setup key.properties file
+        run: |
+          echo '${{ secrets.KEYSTORE_SIGNING_KEY_BASE64 }}' | base64 --decode >> upload-keystore.jks
+
+          
+          
