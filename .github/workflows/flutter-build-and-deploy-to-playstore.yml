@@ -8,9 +8,6 @@ on:
       flutter-version:
         type: string
         default: '3.19.0'
-      java-version:
-        type: string
-        default: '12'        
     secrets:
       SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64:
         required: true
@@ -48,7 +45,7 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v4.1.0
         with:
-          java-version: ${{ inputs.java-version }}
+          java-version: '21'
           distribution: adopt
 
       - name: Setup Ruby, JRuby and TruffleRuby
