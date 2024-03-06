@@ -27,7 +27,7 @@ jobs:
       
       - name: Setup Service-Account-Key.json
         run: |
-          echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64 }}' | base64 --decode >> Service-Account-Key.json
+          echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64 }}' | base64 --decode >> android/fastlane/Service-Account-Key.json
 
       - name: Setup key.properties file
         run: |
