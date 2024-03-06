@@ -60,5 +60,8 @@ jobs:
       - name: list directory
         run: ls
 
+      - name: install fastlane plugins
+        run: $(cd android && bundle install)
+
       - name: Run fastlane to build flutter app and deploy to given track
         run: $(cd android && bundle exec fastlane ${{ inputs.track }})
