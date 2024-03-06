@@ -51,8 +51,8 @@ jobs:
           java-version: ${{ inputs.java-version }}
           distribution: adopt
 
-      - name: install bundler for fastlane execution
-        run: gem install bundler
+      - name: Setup Ruby, JRuby and TruffleRuby
+        uses: ruby/setup-ruby@v1
 
       - name: list directory
         run: ls
