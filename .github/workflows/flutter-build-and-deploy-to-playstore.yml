@@ -33,7 +33,7 @@ jobs:
 
       - name: Setup key.properties file
         run: |
-          echo '${{ secrets.KEYSTORE_INFORMATION_FILE_BASE64 }}' | base64 --decode >> key.properties
+          echo '${{ secrets.KEYSTORE_INFORMATION_FILE_BASE64 }}' | base64 --decode >> android/key.properties
 
       - name: Setup keystore
         run: |
@@ -58,4 +58,4 @@ jobs:
       - name: Run fastlane to build flutter app and deploy to given track
         run: |
           $(cd /android bundle install)
-          $ (cd /android && bundler exec fastlane ${{ inputs.track }})
+          $(cd /android && bundler exec fastlane ${{ inputs.track }})
