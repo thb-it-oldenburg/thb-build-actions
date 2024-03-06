@@ -45,8 +45,8 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v4.1.0
         with:
-          java-version: '21'
-          distribution: adopt
+          java-version: '17'
+          distribution: 'temurin'
 
       - name: Setup Ruby, JRuby and TruffleRuby
         uses: ruby/setup-ruby@v1
@@ -58,7 +58,7 @@ jobs:
         run: cd android && bundle install
 
       - name: Setup Android SDK Tools
-        uses: android-actions/setup-android@v3.2.0
+        uses: android-actions/setup-android@v3
         
       - name: list directory
         run: ls
