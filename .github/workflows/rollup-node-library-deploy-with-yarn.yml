@@ -4,8 +4,6 @@ on: workflow_call
 jobs:
   rollup-library:
     runs-on: ubuntu-latest
-    permissions:
-      packages: read
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
