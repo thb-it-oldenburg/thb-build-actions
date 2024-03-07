@@ -39,7 +39,7 @@ jobs:
 
       - name: Setup keystore
         run: |
-          echo '${{ secrets.KEYSTORE_FILE_WITH_SIGNING_KEY_BASE64 }}' | base64 --decode >> upload-keystore.jks
+          echo '${{ secrets.KEYSTORE_FILE_WITH_APP_SIGNING_KEY_BASE64 }}' | base64 --decode >> upload-keystore.jks
 
       - name: Setup flutter
         uses: subosito/flutter-action@v2.13.0
