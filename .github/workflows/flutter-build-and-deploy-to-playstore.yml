@@ -75,4 +75,4 @@ jobs:
         run: flutter build appbundle
 
       - name: Run fastlane to build flutter app and deploy to given track
-        run: cd android && bundle exec fastlane ${{ inputs.track }}
+        run: cd android && bundle exec fastlane ${{ inputs.fastlane-lane }}
