@@ -4,9 +4,14 @@ on: workflow_call
 jobs:
   rollup-library:
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
+
+      - name: add verification to yarn
+        run: yarn config set npmScopes.thb-it-oldenburg.npmAuthToken ${{ github.token }}
 
       - name: install dependencies
         run: yarn --frozen-lockfile
