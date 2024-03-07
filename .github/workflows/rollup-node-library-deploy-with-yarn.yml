@@ -1,0 +1,24 @@
+name: rollup node library
+on: workflow_call
+
+jobs:
+  rollup-library:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: increase patch version
+        run: yarn version patch
+
+      - name: run rollup
+        run: npx rollup -c
+
+      - name: publish to registry configured by package.json
+        run: yarn npm publish
+
+      - name: push version chages
+        uses: thb-it-oldenburg/git-push-changes-from-workflows-action@v1
