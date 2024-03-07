@@ -1,0 +1,38 @@
+on:
+  workflow_call:
+    inputs:
+      git-commit-message:
+        type: string
+        default: 'ci: build: Pipeline changed some files'
+
+jobs:
+  test-if-something-changed:
+    runs-on: ubuntu-latest
+    outputs:
+      isFileChanged: ${{ steps.check.outputs.isFileChanged }}
+    steps:
+      - id: check
+        run: |
+          if [[ $(git diff) -eq '' ]]; then
+            echo "isFileChanged=false" >> "$GITHUB_OUTPUT";
+            return;
+          else
+            echo "isFileChanged=true" >> "$GITHUB_OUTPUT";
+            return;
+          fi
+  commit-if-files-changed:
+    runs-on: ubuntu-latest
+    needs: test-if-something-changed
+    permissions: write-all
+    if: needs.test-if-something-changed.outputs.isFileChanged == 'true'
+    steps:
+      - name: Set git author
+        run: |
+          git config --global user.name "GitHub Workflow Bot"
+          git config --global user.email "thb-it-oldenburg-173-249-45-181@thb-it-bot.de"
+      
+      - name: Add changed files
+        run: git commit -a -m ${{ inputs.git-commit-message }}
+
+      - name: Push changes
+        run: git push
