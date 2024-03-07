@@ -2,19 +2,20 @@ name: Flutter build and deploy
 on:
   workflow_call:
     inputs:
-      track:
+      fastlane-lane:
         type: string
         default: 'internal'
+        description: Choose the lane you want to execute. Make sure that the lane is defined in your Fastfile!
       flutter-version:
         type: string
         default: '3.19.0'
     secrets:
-      SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64:
+      GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY_FILE_BASE64:
         required: true
         description: The Google Service key Json File. Note that the filecontent should be encoded with base64.
       KEYSTORE_INFORMATION_FILE_BASE64:
         description: 'See Readme. Contains stuff that belongs in the file "key.properties". Also base64 encoded.'
-      KEYSTORE_SIGNING_KEY_BASE64:
+      KEYSTORE_FILE_WITH_SIGNING_KEY_BASE64:
         description: The keystore file containing your private upload key encoded with base 64
         required: true
 
@@ -27,7 +28,7 @@ jobs:
       
       - name: Setup Service-Account-Key.json
         run: |
-          echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64 }}' | base64 --decode >> android/Service-Account-Key.json
+          echo '${{ secrets.GOOGLE_CLOUD_SERVICE_ACCOUNT_KEY_FILE_BASE64 }}' | base64 --decode >> android/Service-Account-Key.json
 
       - name: Setup key.properties file
         run: |
@@ -38,7 +39,7 @@ jobs:
 
       - name: Setup keystore
         run: |
-          echo '${{ secrets.KEYSTORE_SIGNING_KEY_BASE64 }}' | base64 --decode >> upload-keystore.jks
+          echo '${{ secrets.KEYSTORE_FILE_WITH_SIGNING_KEY_BASE64 }}' | base64 --decode >> upload-keystore.jks
 
       - name: Setup flutter
         uses: subosito/flutter-action@v2.13.0
