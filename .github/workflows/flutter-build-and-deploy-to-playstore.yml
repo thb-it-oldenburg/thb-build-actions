@@ -27,8 +27,7 @@ jobs:
       
       - name: Setup Service-Account-Key.json
         run: |
-          echo $PWD
-          echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64 }}' | base64 --decode >> android/fastlane/Service-Account-Key.json
+          echo '${{ secrets.SERVICE_ACCOUNT_KEY_FILE_CONTENT_BASE64 }}' | base64 --decode >> android/Service-Account-Key.json
 
       - name: Setup key.properties file
         run: |
@@ -41,38 +40,38 @@ jobs:
         run: |
           echo '${{ secrets.KEYSTORE_SIGNING_KEY_BASE64 }}' | base64 --decode >> upload-keystore.jks
 
-#      - name: Setup flutter
-#        uses: subosito/flutter-action@v2.13.0
-#        with:
-#          flutter-version: ${{ inputs.flutter-version }}
-#
-#      - name: Setup Java JDK
-#        uses: actions/setup-java@v4.1.0
-#        with:
-#          java-version: '17'
-#          distribution: 'temurin'
-#
-#      - name: Setup Ruby, JRuby and TruffleRuby
-#        uses: ruby/setup-ruby@v1
-#        with:
-#          ruby-version: '3.1'
-#          bundler-cache: true
-#
-#      - name: install fastlane plugins
-#        run: cd android && bundle install
-#
-#      - name: Setup Android SDK Tools
-#        uses: android-actions/setup-android@v3
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2.13.0
+        with:
+          flutter-version: ${{ inputs.flutter-version }}
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.1.0
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Ruby, JRuby and TruffleRuby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: install fastlane plugins
+        run: cd android && bundle install
+
+      - name: Setup Android SDK Tools
+        uses: android-actions/setup-android@v3
         
- #     - name: list directory
- #       run: ls
+      - name: list directory
+        run: ls
 
- #     - run: flutter pub get
+      - run: flutter pub get
       
- #     - run: flutter test
+      - run: flutter test
 
- #     - name: prepare build
- #       run: flutter build appbundle
+      - name: prepare build
+        run: flutter build appbundle
 
- #     - name: Run fastlane to build flutter app and deploy to given track
- #       run: cd android && bundle exec fastlane ${{ inputs.track }}
+      - name: Run fastlane to build flutter app and deploy to given track
+        run: cd android && bundle exec fastlane ${{ inputs.track }}
