@@ -12,8 +12,6 @@ jobs:
         with:
           node-version: 20
 
-      - run: node --version
-
       - name: add verification to yarn
         run: yarn config set npmScopes.thb-it-oldenburg.npmAuthToken ${{ github.token }}
 
