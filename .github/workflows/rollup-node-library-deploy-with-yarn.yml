@@ -33,4 +33,4 @@ jobs:
         run: yarn config unset npmScopes.thb-it-oldenburg.npmAuthToken
 
       - name: push all changes
-        uses: thb-it-oldenburg/git-push-changes-from-workflows-action@main
+        uses: thb-it-oldenburg/git-push-changes-from-workflows-action@v1
