@@ -29,5 +29,8 @@ jobs:
       - name: publish to registry configured by package.json
         run: yarn npm publish
 
-      - name: push version changes
+      - name: remove verification from yarn before git push
+        run: yarn config unset npmScopes.thb-it-oldenburg.npmAuthToken
+
+      - name: push all changes
         uses: thb-it-oldenburg/git-push-changes-from-workflows-action@main
