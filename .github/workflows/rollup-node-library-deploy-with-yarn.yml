@@ -29,5 +29,5 @@ jobs:
       - name: publish to registry configured by package.json
         run: yarn npm publish
 
-      - name: push version chages
+      - name: push version changes
         uses: thb-it-oldenburg/git-push-changes-from-workflows-action@main
