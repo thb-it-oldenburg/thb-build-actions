@@ -8,6 +8,10 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v4
 
+      - run: node --version
+
+      - run: yarn --version
+
       - name: add verification to yarn
         run: yarn config set npmScopes.thb-it-oldenburg.npmAuthToken ${{ github.token }}
 
