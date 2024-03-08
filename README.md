@@ -84,3 +84,9 @@ Auch diese Datei muss base64 codiert werden.
 ### KEYSTORE_FILE_WITH_APP_SIGNING_KEY_BASE64
 Enthält den keystore, also eine .jks Datei, welche den privaten upload Key für die Appbundles enthält. Ohne sie wird die App nicht signiert und vom Playstore abgelehnt.
 Die genaue Form ist unbekannt, sie muss aber in einem Secret base64 codiert vorliegen, damit der workflow die Datei korrekt im Runner anlegen kann.
+
+# rollup-node-library-deploy-with-yarn
+Workflow, um Node Packages mit rollup zu bündeln und in die GitHub package registry zu schieben.
+
+Gehe sicher, dass im aufrufenden Projekt yarn ab Version 2 aufwärts benutzt wird (es liegt ein .yarn ordner darin). Wenn nicht, installiere mit dem Befehl `yarn set version stable` die neuste stabile Version.
+Eine funktionierende rollup Konfiguration findest du im Wiki unter: https://wiki.thb-it.de/de/pipelines/github-workflows
