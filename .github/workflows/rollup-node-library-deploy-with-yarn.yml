@@ -12,7 +12,7 @@ jobs:
         run: yarn config set npmScopes.thb-it-oldenburg.npmAuthToken ${{ github.token }}
 
       - name: install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
 
       - name: increase patch version
         run: yarn version patch
