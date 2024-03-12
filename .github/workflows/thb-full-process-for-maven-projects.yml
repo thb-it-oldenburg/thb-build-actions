@@ -48,7 +48,7 @@ jobs:
 
   use-build-container-push-to-registry:
     needs: [use-build-backend]
-    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@1.4.0
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.4.0
     with:
       artifact-name: ${{ inputs.artifact-name }}
       container-tag: ${{ inputs.container-tag }}
