@@ -11,6 +11,7 @@ on:
       java-package-type:
         type: string
         default: jar
+        description: Insert either 'jar' or 'war'.
       java-version:
         type: number
         default: 17
