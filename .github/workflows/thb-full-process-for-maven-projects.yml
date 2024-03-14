@@ -8,6 +8,12 @@ name: Full Build- and Deployment-Process for Maven Projects
 on:
   workflow_call:
     inputs:
+      java-package-type:
+        type: string
+        default: jar
+      java-version:
+        type: number
+        default: 17
       container-tag:
         type: string
       artifact-name:
@@ -35,12 +41,12 @@ jobs:
     with:
       artifact-name: ${{ inputs.artifact-name }}
       artifact-path: "production"
-      java-version: 17
+      java-version: ${{ inputs.java-version }}
       maven-build-command: |
         mvn -B clean package --file pom.xml -U
         mkdir production
         ls
-        cp target/*.jar production
+        cp target/*.${{ inputs.java-package-type }} production
         cp ./docker/Dockerfile production
     secrets:
       repo-access-username: ${{ secrets.repo-access-username }}
