@@ -23,9 +23,40 @@ jobs:
     needs: [call-docker-build]
     runs-on: ubuntu-latest
     steps:
-      - name: Call Webhook
-        if: inputs.webhook-url != ''
-        run: "curl -X POST ${{ inputs.webhook-url }}"
+    - name: Call Webhook with Retry Logic
+      if: inputs.webhook-url != ''
+      run: |
+        retries=5
+        delay=10
+        success=false
+
+        for ((i=1; i<=retries; i++)); do
+          echo "Attempt $i of $retries..."
+          
+          # Webhook-Aufruf und Statuscode speichern
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${{ inputs.webhook-url }}")
+          echo "HTTP Response Code: $response"
+          
+          if [ "$response" -eq 404 ]; then
+            echo "Webhook call failed with HTTP $response. Exiting..."
+            exit 1
+          fi
+
+          # Erfolg, wenn der HTTP-Status 204 ist
+          if [[ "$response" -ge 200 && "$response" -lt 300 ]]; then
+            echo "Webhook call successful with HTTP $response!"
+            success=true
+            break
+          else
+            echo "Webhook call failed with HTTP $response. Retrying in $delay seconds..."
+            sleep $delay
+          fi
+        done
+
+        if [ "$success" = false ]; then
+          echo "Webhook call failed after $retries attempts."
+          exit 2
+        fi
         
   clean-git-hub-container-registry:
       name: Remove old unused container images
