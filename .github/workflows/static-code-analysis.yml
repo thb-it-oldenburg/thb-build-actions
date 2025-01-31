@@ -44,6 +44,6 @@ jobs:
           DISABLE_ERRORS: ${{ inputs.DISABLE_ERRORS }}
         
       - name: Upload Logfile
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: super-linter.log
