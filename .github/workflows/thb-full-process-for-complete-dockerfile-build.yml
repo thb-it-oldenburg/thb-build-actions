@@ -15,7 +15,7 @@ on:
         
 jobs:      
   call-docker-build:
-    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.3.1
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.5.4
     with:
       container-tag: ${{ inputs.container-tag }}
 
