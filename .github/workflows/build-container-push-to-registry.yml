@@ -10,6 +10,9 @@ on:
       artifact-path:
         type: string
         default: .
+      image-name: 
+        type: string
+        default: ''  # Korrektur: erlaubt leeren Wert, damit Fallback greift
       file-name:
         type: string
         required: false
@@ -59,13 +62,30 @@ jobs:
           ${{ secrets.GITHUB_TOKEN }}
           EOF
 
+      - name: Set final image name
+        id: meta
+        run: |
+          if [ -z "${{ inputs.image-name }}" ]; then
+            echo "image_name=${{ github.repository }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "image_name=${{ github.repository }}/${{ inputs.image-name }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build Container image with extra tag and latest
         if: inputs.container-tag != ''
-        run: docker build --secret id=github_token,src=./github_token.txt -t ghcr.io/${GITHUB_REPOSITORY}:${{ inputs.container-tag }} -t ghcr.io/${GITHUB_REPOSITORY}:latest ${{ inputs.artifact-path }} # Im Pfad am Ende muss das Dockerfile liegen
+        run: |
+          docker build --secret id=github_token,src=./github_token.txt \
+            -t ghcr.io/${{ steps.meta.outputs.image_name }}:${{ inputs.container-tag }} \
+            -t ghcr.io/${{ steps.meta.outputs.image_name }}:latest \
+            ${{ inputs.artifact-path }}
 
       - name: Build Container image as latest
         if: inputs.container-tag == ''
-        run: docker build --secret id=github_token,src=./github_token.txt -t ghcr.io/${GITHUB_REPOSITORY}:latest ${{ inputs.artifact-path }} # Im Pfad am Ende muss das Dockerfile liegen
+        run: |
+          docker build --secret id=github_token,src=./github_token.txt \
+            -t ghcr.io/${{ steps.meta.outputs.image_name }}:latest \
+            ${{ inputs.artifact-path }}
 
-      - name: Push image to DockerHub
-        run: docker push ghcr.io/${GITHUB_REPOSITORY} --all-tags
+      - name: Push image to GitHub Container Registry
+        run: |
+          docker push ghcr.io/${{ steps.meta.outputs.image_name }} --all-tags

@@ -1,4 +1,4 @@
-### This workflow covers the complete build- and deployment-process for Projects, wich have their complete installation defined by the 'Dockerfile' in the root of their repository
+### This workflow covers the complete build- and deployment-process for Projects, which have their complete installation defined by the 'Dockerfile' in the root of their repository
 ### 1. Build a docker container image
 ### 2. Push the docker container image to the github registry
 ### 3. Trigger a webhook (if webhook-url is set)
@@ -12,12 +12,21 @@ on:
       webhook-url:
         type: string
         description: "if not empty, as last step this webhook url will be called"
+      artifact-path: 
+        type: string
+        required: false
+        default: .
+      image-name: 
+        type: string
+        default: '' 
         
 jobs:      
   call-docker-build:
-    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.5.4
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@main
     with:
       container-tag: ${{ inputs.container-tag }}
+      artifact-path: ${{ inputs.artifact-path }}
+      image-name: ${{ inputs.image-name }}
 
   use-webhook:
     needs: [call-docker-build]
@@ -61,4 +70,6 @@ jobs:
   clean-git-hub-container-registry:
       name: Remove old unused container images
       needs: call-docker-build
-      uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@v1.2.4
+      uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@main
+      with: 
+        image-name: ${{ inputs.image-name }}
