@@ -38,7 +38,7 @@ on:
 
 jobs:
   use-build-backend:
-    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-java-input-command.yml@v1.5.4
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-java-input-command.yml@v1.5.7
     with:
       artifact-name: ${{ inputs.artifact-name }}
       artifact-path: "production"
@@ -55,7 +55,7 @@ jobs:
 
   use-build-container-push-to-registry:
     needs: [use-build-backend]
-    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.5.4
+    uses: thb-it-oldenburg/thb-build-actions/.github/workflows/build-container-push-to-registry.yml@v1.5.7
     with:
       artifact-name: ${{ inputs.artifact-name }}
       container-tag: ${{ inputs.container-tag }}
@@ -74,4 +74,4 @@ jobs:
   clean-git-hub-container-registry:
       name: Remove old unused container images
       needs: use-build-container-push-to-registry
-      uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@v1.5.4
+      uses: thb-it-oldenburg/thb-build-actions/.github/workflows/remove-untagged-container-images-from-calling-repo.yml@v1.5.7
